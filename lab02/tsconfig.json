@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+  }
+}
