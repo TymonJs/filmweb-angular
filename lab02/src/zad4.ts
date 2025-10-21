@@ -1,8 +1,5 @@
 
 function mergeArrays<T>(arr: T[], arr2: T[]): T[]{
-    
-    // if (typeof arr !== typeof arr2) throw new Error("Arrays have to be the same type")
-
     return [...arr, ...arr2]
 }
 
