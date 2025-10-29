@@ -1,0 +1,10 @@
+@if (products.length > 0){
+<ol>
+  @for (p of products; track $index){
+  <div class="prod">
+    <li>{{ p }}</li>
+    <button (click)="removeProduct($index)">Usuń</button>
+  </div>
+  }
+</ol>
+}

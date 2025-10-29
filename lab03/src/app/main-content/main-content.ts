@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tj-main-content',
+  selector: 'app-main-content',
   imports: [],
   templateUrl: './main-content.html',
   styleUrl: './main-content.scss'
