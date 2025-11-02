@@ -13,7 +13,6 @@ export class Alert {
 
 
   clearWarning() {
-    this.warning = "";
     this.warningEmitter.emit()
   }
 
