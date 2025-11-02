@@ -1,2 +1,13 @@
-<app-product-form></app-product-form>
-<app-product-list></app-product-list>
+<div class="container">
+
+    <h1>Lista produktów</h1>
+
+    <app-product-form (addProduct)="onAddProduct($event)"></app-product-form>
+
+    @if (warning!=""){
+    <app-alert [warning]="warning" (warningEmitter)="clearWarning()"></app-alert>
+    }
+
+    <app-product-list [products]="products" (removeEmitter)="onRemoveProduct($event)"
+        (removeCheckedEmitter)="onRemoveChecked($event)"></app-product-list>
+</div>

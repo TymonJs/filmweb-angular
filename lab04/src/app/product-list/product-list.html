@@ -1,10 +1,10 @@
 @if (products.length > 0){
-<ol>
-  @for (p of products; track $index){
-  <div class="prod">
-    <li>{{ p }}</li>
-    <button (click)="removeProduct($index)">Usuń</button>
-  </div>
-  }
-</ol>
+@for (p of products; track $index){
+<div class="prod">
+  <input type="checkbox" [id]="'box' + $index" (change)="onCheckedProduct(p)" [checked]="checkedProducts.includes(p)">
+  <label [for]="'box' + $index" [class.checked]="checkedProducts.includes(p)">{{ p }}</label>
+  <button (click)="onRemoveProduct(p)">Usuń</button>
+</div>
+}
+<button (click)="onRemoveChecked()">Usuń kupione</button>
 }
