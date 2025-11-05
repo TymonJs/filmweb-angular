@@ -1,0 +1,17 @@
+.inputs{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 4;
+    .dane{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        grid-column: span 1;
+        input{
+            height:1.25rem;
+            flex: 1;
+            margin-right: 3rem;
+        }
+
+    }
+}

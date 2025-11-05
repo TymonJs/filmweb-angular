@@ -1,0 +1,42 @@
+<h2>Dodaj Użytkownika</h2>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="inputs">
+        <div class="dane">
+            <p>Imię</p>
+            <input type="text" [(ngModel)]="user.name">
+        </div>
+        <div class="dane">
+            <p>Nazwisko</p>
+            <input type="text" [(ngModel)]="user.lastname">
+        </div>
+        <div class="dane">
+            <p>Numer Telefonu</p>
+            <input type="text" [(ngModel)]="user.phone_number">
+        </div>
+        <div class="dane">
+            <p>Rok urodzenia</p>
+            <input type="text" [(ngModel)]="user.birth_year">
+        </div>
+        <div class="dane">
+            <p>Ulica</p>
+            <input type="text" [(ngModel)]="user.address.street">
+        </div>
+        <div class="dane">
+            <p>Numer domu</p>
+            <input type="text" [(ngModel)]="user.address.house_number">
+        </div>
+        <div class="dane">
+            <p>Numer mieszkania</p>
+            <input type="text" [(ngModel)]="user.address.apartment_number">
+        </div>
+        <div class="dane">
+            <p>Kod pocztowy</p>
+            <input type="text" [(ngModel)]="user.address.postal_code">
+        </div>
+        <div class="dane">
+            <p>Miejscowość</p>
+            <input type="text" [(ngModel)]="user.address.city">
+        </div>
+    </div>
+    <button>Dodaj</button>
+</form>
