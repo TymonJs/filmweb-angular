@@ -22,7 +22,7 @@ export class UserForm {
     address : {
         street: "",
         house_number: 0,
-        home_number: 0,
+        apartment_number: 0,
         postal_code: 0,
         city: ""
     }
