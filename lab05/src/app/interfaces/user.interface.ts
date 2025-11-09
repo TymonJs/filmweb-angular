@@ -1,14 +1,14 @@
 export interface User {
-    id: number,
+    id: string,
     name: string,
     lastname: string,
-    phone_number: number,
-    birth_year: number,
+    phone_number: string,
+    birth_year: string,
     address : {
         street: string,
-        house_number: number,
-        apartment_number: number,
-        postal_code: number,
+        house_number: string,
+        apartment_number: string,
+        postal_code: string,
         city: string
     }
 }

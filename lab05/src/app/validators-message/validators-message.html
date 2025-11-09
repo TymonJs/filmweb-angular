@@ -1,0 +1,17 @@
+@if (control && control.touched){
+    @if (control.errors?.['required']){
+        <p>{{ name }} is required</p>
+    }
+    @if (control.errors?.['minlength']){
+        <p>{{ name }} is too short</p>
+    }
+    @if (control.errors?.['tooOld']){
+        <p>You're too old</p>
+    }
+    @if (control.errors?.['postalInvalid']){
+        <p>Postal is invalid</p>
+    }
+    @if (control.errors?.['notCapitalized']){
+        <p>{{ name }} has to be capitalized text</p>
+    }
+}

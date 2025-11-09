@@ -1,7 +1,7 @@
-<app-user-form (userEmitter)="sendToUserList($event)">
+<app-user-form (userEmitter)="addUser($event)">
 
 </app-user-form>
 
-<app-user-list [user]="user">
+<app-user-list [users]="users" (deletePersonEmitter)="deletePerson($event)">
 
 </app-user-list>

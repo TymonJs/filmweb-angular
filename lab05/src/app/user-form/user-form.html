@@ -2,41 +2,70 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="inputs">
         <div class="dane">
-            <p>Imię</p>
-            <input type="text" [(ngModel)]="user.name">
+            <div class="content">
+                <p>Imię</p>
+                <input  type="text" name="name" [(ngModel)]="user.name" required minlength="3" appCapitalized>
+            </div>
+            <app-validators-message [control]="form.controls['name']" name="Name"></app-validators-message>
         </div>
         <div class="dane">
-            <p>Nazwisko</p>
-            <input type="text" [(ngModel)]="user.lastname">
+            <div class="content">
+                <p>Nazwisko</p>
+                <input type="text" name="lastname" [(ngModel)]="user.lastname" required minlength="3" appCapitalized>
+            </div>
+            <app-validators-message [control]="form.controls['lastname']" name="Last name"></app-validators-message>
+        </div>
+        <div></div>
+        <div class="dane">
+            <div class="content">
+                <p>Numer Telefonu</p>
+                <input type="text" name="phone_number" [(ngModel)]="user.phone_number" required minlength="9" maxlength="9">
+            </div>
+            <app-validators-message [control]="form.controls['phone_number']" name="Phone number"></app-validators-message>
         </div>
         <div class="dane">
-            <p>Numer Telefonu</p>
-            <input type="text" [(ngModel)]="user.phone_number">
+            <div class="content">
+                <p>Rok urodzenia</p>
+                <input type="text" name="birth_year" [(ngModel)]="user.birth_year" required appMaxAge>
+            </div>
+            <app-validators-message [control]="form.controls['birth_year']" name="Birth year"></app-validators-message>
+        </div>
+        <div></div>
+        <div class="dane">
+            <div class="content">
+                <p>Ulica</p>
+                <input type="text" name="street" [(ngModel)]="user.address.street" required minlength="3">
+            </div>
+            <app-validators-message [control]="form.controls['street']" name="Street"></app-validators-message>
         </div>
         <div class="dane">
-            <p>Rok urodzenia</p>
-            <input type="text" [(ngModel)]="user.birth_year">
+            <div class="content">
+                <p>Numer domu</p>
+                <input type="text" name="house_number" [(ngModel)]="user.address.house_number" required maxlength="5">
+            </div>
+            <app-validators-message [control]="form.controls['house_number']" name="House number"></app-validators-message>
         </div>
         <div class="dane">
-            <p>Ulica</p>
-            <input type="text" [(ngModel)]="user.address.street">
+            <div class="content">
+                <p>Numer mieszkania</p>
+                <input type="text" name="apartment_number" [(ngModel)]="user.address.apartment_number" maxlength="5">
+            </div>
+            <app-validators-message [control]="form.controls['apartment_number']" name="Apartment number"></app-validators-message>
         </div>
         <div class="dane">
-            <p>Numer domu</p>
-            <input type="text" [(ngModel)]="user.address.house_number">
+            <div class="content">
+                <p>Kod pocztowy</p>
+                <input type="text" name="postal_code" [(ngModel)]="user.address.postal_code" required appPostalValid>
+            </div>
+            <app-validators-message [control]="form.controls['postal_code']" name="Postal code"></app-validators-message>
         </div>
         <div class="dane">
-            <p>Numer mieszkania</p>
-            <input type="text" [(ngModel)]="user.address.apartment_number">
-        </div>
-        <div class="dane">
-            <p>Kod pocztowy</p>
-            <input type="text" [(ngModel)]="user.address.postal_code">
-        </div>
-        <div class="dane">
-            <p>Miejscowość</p>
-            <input type="text" [(ngModel)]="user.address.city">
+            <div class="content">
+                <p>Miejscowość</p>
+                <input type="text" name="city" [(ngModel)]="user.address.city" required minlength="3">
+            </div>
+            <app-validators-message [control]="form.controls['city']" name="City"></app-validators-message>
         </div>
     </div>
-    <button>Dodaj</button>
+    <button [disabled]="form.invalid">Dodaj</button>
 </form>
