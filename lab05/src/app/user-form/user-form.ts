@@ -5,7 +5,7 @@ import { User } from '../interfaces/user.interface';
 import { MaxAge } from "../max-age/max-age";
 import { PostalValid } from "../postal-valid/postal-valid";
 import { ValidatorsMessage } from "../validators-message/validators-message";
-import { Capitalized } from "../capitalized";
+import { Capitalized } from "../capitalized/capitalized";
 
 @Component({
   selector: 'app-user-form',
