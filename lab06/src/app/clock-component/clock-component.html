@@ -2,9 +2,8 @@
 <button (click)="changeFormat()">Zmień format godziny</button>
 
 
-@if (clockVisible){
-    <h2>{{ time.hour }}:{{ time.minute }}:{{ time.second }}</h2>
-    
-    <button (click)="stopTimer()">Stop</button>
-    <button (click)="startTimer(true)">Start</button>
-}
+
+<h2>{{ time.hour }}:{{ time.minute }}:{{ time.second }}</h2>
+
+<button (click)="stopTimer()">Stop</button>
+<button (click)="startTimer(true)">Start</button>

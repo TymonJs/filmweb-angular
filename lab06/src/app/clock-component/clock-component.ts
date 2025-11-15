@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Time } from '../time.interface';
 
 @Component({
@@ -7,12 +7,11 @@ import { Time } from '../time.interface';
     templateUrl: './clock-component.html',
     styleUrl: './clock-component.scss',
 })
-export class ClockComponent implements OnInit, OnChanges{
+export class ClockComponent implements OnChanges, OnDestroy{
 
     @Input({ required: true }) public format!: '12' | '24';
-    @Input({ required: true }) clockVisible!: boolean;
 
-    protected time: Time = {hour: 0, minute: 0, second: 0};
+    public time: Time = {hour: 0, minute: 0, second: 0};
     protected date: Date = new Date();
     protected interval: number | undefined;
 
@@ -20,14 +19,13 @@ export class ClockComponent implements OnInit, OnChanges{
         this.updateClock();
     }
 
-    ngOnInit(): void {
-      this.startTimer();
-    }
     ngOnChanges(changes: SimpleChanges): void {
-        for (let prop in changes){
-            console.log(prop, changes[prop]);
-            
-        }
+        this.startTimer();
+        console.log(changes);
+        
+    }
+    ngOnDestroy(): void {
+        this.stopTimer();
         
     }
 

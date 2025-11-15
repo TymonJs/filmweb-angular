@@ -3,6 +3,11 @@
     <button (click)="removeClock()">Usuń zegar</button>
 </div>
 
+@if (clockVisible){
+    <app-clock-component [format]="format"></app-clock-component>
+}
+@else if (lastTime){
+    <p>Ostatni czas {{ lastTime.hour }}:{{ lastTime.minute }}:{{ lastTime.second }}</p>
+}
 
-<app-clock-component [format]="format" [clockVisible]="clockVisible"></app-clock-component>
 
