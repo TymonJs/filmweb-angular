@@ -18,11 +18,12 @@ export class App {
     removeClock(){
         if (this.clockComponent){
             this.lastTime = this.clockComponent.time
-            const lastFormat = this.clockComponent.format
+            this.format = this.clockComponent.format
             
-            if (lastFormat == "12") this.lastTime.hour = this.lastTime.hour % 12 || 12;
+            if (this.format == "12") this.lastTime.hour = this.lastTime.hour % 12 || 12;
 
             this.clockVisible = false;
+            
         }
     }
 
