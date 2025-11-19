@@ -5,7 +5,10 @@ form{
     .input{
         display: flex;
         gap: 1rem;
-        width: 10rem;
+        input {
+            width: 10rem;
+        }
+
     }
     button{
         width: fit-content;

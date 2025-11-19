@@ -1,3 +1,33 @@
-@for (post of posts; track $index) {
-    <p>test</p>
-}
+<div class="content">
+    <h2>Lista postów</h2>
+    <div class="page-nav">
+        <button (click)="prevPage()">Poprzedni</button>
+        <button (click)="nextPage()">Następny</button>
+    </div>
+    <div class="posts">
+        @for (post of (posts | sortedPosts); track $index) {
+            <div class="post">
+    
+                <div>
+                    <h2>{{ post.title | uppercase }}</h2>
+                    <p>Data utworzenia: {{ post.createdAt | date: "dd MMMM yyyy, HH:mm"}}</p>
+                </div>
+    
+                <div>
+                    {{ post.body }}
+                </div>
+    
+                <div>
+                    {{ post.lastModifiedAt | date: "dd MMMM yyyy, HH:mm" }}
+                </div>
+    
+                <div class="buttons">
+                    <button (click)="edit(post)">Edytuj</button>
+                    <button (click)="remove(post.id)">Usuń</button>
+                </div>
+    
+            </div>
+        }
+    </div>
+</div>
+

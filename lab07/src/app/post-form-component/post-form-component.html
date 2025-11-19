@@ -2,10 +2,23 @@
     <div class="input">
         <label for="title">Tytuł</label>
         <input name="title" id="title" placeholder="Podaj tytuł" formControlName="title"/>
+        @if (postForm.controls.title.touched && postForm.controls.title.errors){
+            <p>Tytuł jest wymagany</p>
+        }
     </div>
     <div class="input">
         <label for="body">Treść</label>
-        <input name="body" id="body" placeholder="Podaj treść" formControlName="body"/>
+        <textarea name="body" id="body" placeholder="Podaj treść" formControlName="body"></textarea>
+        @if (postForm.controls.body.touched && postForm.controls.body.errors){
+            <p>Treść jest wymagana</p>
+        }
     </div>
-    <button type="submit" (click)="submit(postForm)">Dodaj</button>
+    <button type="submit" [disabled]="postForm.invalid" (click)="submit(postForm)">
+        @if (this.lastEdited){
+            Edytuj
+        }
+        @else{
+            Dodaj
+        }
+    </button>
 </form>
