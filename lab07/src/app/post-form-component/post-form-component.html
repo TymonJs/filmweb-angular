@@ -1,0 +1,11 @@
+<form [formGroup]="postForm">
+    <div class="input">
+        <label for="title">Tytuł</label>
+        <input name="title" id="title" placeholder="Podaj tytuł" formControlName="title"/>
+    </div>
+    <div class="input">
+        <label for="body">Treść</label>
+        <input name="body" id="body" placeholder="Podaj treść" formControlName="body"/>
+    </div>
+    <button type="submit" (click)="submit(postForm)">Dodaj</button>
+</form>
