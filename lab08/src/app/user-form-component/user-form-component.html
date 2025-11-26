@@ -1,0 +1,58 @@
+<h2>Dodaj użytkownika</h2>
+
+<form [formGroup]="form">
+    <h3>Dane użytkownika</h3>
+    <div class="form-group">
+        
+        <div class="data">
+            <label for="name">Imię</label>
+            <input type="text" name="name" formControlName="name">
+            @if (form.controls.name.touched && form.controls.name.errors){
+                <p>Imię jest wymagane</p>
+            }
+        </div>
+
+        <div class="data">
+            <label for="lastname">Nazwisko</label>
+            <input type="text" name="lastname" formControlName="lastname">
+            @if (form.controls.lastname.touched && form.controls.lastname.errors){
+                <p>Nazwisko jest wymagane</p>
+            }
+        </div>
+
+        <div class="data">
+            <label for="name">Email</label>
+            <input type="text" name="email" formControlName="email">
+            @if (form.controls.email.touched){
+                @if (form.controls.email.errors?.["required"]){
+                    <p>Email jest wymagany</p>
+                }
+                @else if (form.controls.email.errors?.["email"]){
+                    <p>Podaj poprawny email</p>
+                }
+            }
+        </div>
+    </div>
+    
+    <h3>Adres</h3>
+    <div formArrayName="address">
+
+        @for (addressFormGroup of form.controls.addresses.controls; track addressFormGroup; let index = $index){
+            <div class="form-group" formGroupName="address">
+        
+                <label for="street">Ulica</label>
+                <input type="text" name="street" formControlName="street">
+
+                <label for="city">Miasto</label>
+                <input type="text" name="city" formControlName="city">
+                
+                <label for="postal">Kod pocztowy</label>
+                <input type="text" name="postal" formControlName="postal">
+                
+            </div>
+            <button>Usuń</button>
+        }
+        <button (click)="addAddress()">Dodaj adres</button>
+    </div>
+    <button [disabled]="form.invalid">Dodaj Użytkownika</button>
+</form>
