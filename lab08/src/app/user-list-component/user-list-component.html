@@ -1,1 +1,27 @@
-<p>user-list-component works!</p>
+
+<div class="users">
+    <h3>Lista Użytkowników</h3>
+    @for (user of users; track user; let id = $index){
+        <div class="user">
+            <h4>{{ user.name }} {{ user.lastname }} ({{ user.email }})</h4>
+
+            @if (user.addresses.length > 0){
+                <p>Adres:</p>
+                <div class="addresses">
+                    @for (address of user.addresses; track address; let i = $index){
+                        <div class="address">
+                            <p>{{ address.city }}</p>
+                            <p>{{ address.postal}} {{address.city}}</p>
+                            <button (click)="removeAddress(user.id, i)">Usuń</button>
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="btns">
+                <button (click)="editUser(user.id)">Edytuj</button>
+                <button (click)="removeUser(user.id)">Usuń</button>
+            </div>
+        </div>
+    }
+</div>

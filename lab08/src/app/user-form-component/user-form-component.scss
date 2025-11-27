@@ -1,9 +1,28 @@
 .data{
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: column;
+    div {
+        display: flex;
+        gap: 1rem;
+    }
+    p {
+        color: red;
+    }
 }
 .form-group{
     display: flex;
     gap: 3rem;
+}
+
+.addresses-array{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
 }

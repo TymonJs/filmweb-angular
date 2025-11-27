@@ -1,28 +1,44 @@
-<h2>Dodaj użytkownika</h2>
 
 <form [formGroup]="form">
+    <h2>Dodaj użytkownika</h2>
     <h3>Dane użytkownika</h3>
     <div class="form-group">
         
         <div class="data">
-            <label for="name">Imię</label>
-            <input type="text" name="name" formControlName="name">
-            @if (form.controls.name.touched && form.controls.name.errors){
-                <p>Imię jest wymagane</p>
+            <div>
+                <label for="name">Imię</label>
+                <input type="text" name="name" formControlName="name">
+            </div>
+            @if (form.controls.name.touched){
+                @if (form.controls.name.errors?.["required"]){
+                    <p>Imię jest wymagane</p>
+                }
+                @if (form.controls.name.errors?.["minlength"]){
+                    <p>Imię musi mieć przynajmniej 3 znaki</p>
+                }
             }
         </div>
 
         <div class="data">
-            <label for="lastname">Nazwisko</label>
-            <input type="text" name="lastname" formControlName="lastname">
-            @if (form.controls.lastname.touched && form.controls.lastname.errors){
-                <p>Nazwisko jest wymagane</p>
+            <div>
+                <label for="lastname">Nazwisko</label>
+                <input type="text" name="lastname" formControlName="lastname">
+            </div>
+            @if (form.controls.lastname.touched){
+                @if (form.controls.lastname.errors?.["required"]){
+                    <p>Nazwisko jest wymagane</p>
+                }
+                @if (form.controls.lastname.errors?.["minlength"]){
+                    <p>Nazwisko musi mieć przynajmniej 3 znaki</p>
+                }
             }
         </div>
 
         <div class="data">
-            <label for="name">Email</label>
-            <input type="text" name="email" formControlName="email">
+            <div>
+                <label for="name">Email</label>
+                <input type="text" name="email" formControlName="email">
+            </div>
             @if (form.controls.email.touched){
                 @if (form.controls.email.errors?.["required"]){
                     <p>Email jest wymagany</p>
@@ -35,24 +51,56 @@
     </div>
     
     <h3>Adres</h3>
-    <div formArrayName="address">
+    <div formArrayName="addresses" class="addresses-array">
 
         @for (addressFormGroup of form.controls.addresses.controls; track addressFormGroup; let index = $index){
-            <div class="form-group" formGroupName="address">
-        
-                <label for="street">Ulica</label>
-                <input type="text" name="street" formControlName="street">
+            <div class="form-group" [formGroup]="addressFormGroup">
+                
+                <div class="data">
+                    <div>
+                        <label for="city">Miasto</label>
+                        <input type="text" name="city" formControlName="city">
+                    </div>
+                    @if (addressFormGroup.controls.city.touched && addressFormGroup.controls.city.errors){
+                       <p>Miasto jest wymagane</p>
+                    }
+                </div>
+                
+                <div class="data">
+                    <div>
+                        <label for="street">Ulica</label>
+                        <input type="text" name="street" formControlName="street">
+                    </div>
+                    @if (addressFormGroup.controls.street.touched && addressFormGroup.controls.street.errors){
+                       <p>Ulica jest wymagana</p>
+                    }
+                </div>
 
-                <label for="city">Miasto</label>
-                <input type="text" name="city" formControlName="city">
                 
-                <label for="postal">Kod pocztowy</label>
-                <input type="text" name="postal" formControlName="postal">
+                <div class="data">
+                    <div>
+                        <label for="postal">Kod pocztowy</label>
+                        <input type="text" name="postal" formControlName="postal">
+                    </div>
+                    @if (addressFormGroup.controls.postal.touched){
+                        @if (addressFormGroup.controls.postal.errors?.["required"]){
+                            <p>Kod pocztowy jest wymagany</p>
+                        }
+                        @if (addressFormGroup.controls.postal.errors?.["pattern"]){
+                            <p>Wpisz poprawny kod pocztowy</p>
+                        }
+                    }
+                </div>
                 
+                <button (click)="removeAddress(index)">Usuń</button>
             </div>
-            <button>Usuń</button>
         }
         <button (click)="addAddress()">Dodaj adres</button>
     </div>
-    <button [disabled]="form.invalid">Dodaj Użytkownika</button>
+    @if (UserService.editingUser$ | async){
+        <button [disabled]="form.invalid" (click)="editUser(form)">Edytuj użytkownika</button>
+    }
+    @else{
+        <button [disabled]="form.invalid" (click)="addUser(form)">Dodaj Użytkownika</button>
+    }
 </form>
