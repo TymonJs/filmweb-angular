@@ -33,11 +33,9 @@ export class UserFormComponent implements OnInit {
   ngOnInit(): void {
       this.UserService.editingUser$.subscribe({
         next: (user) => {
-          if (user===null) {
-            this.resetForm();
-            return;
-          }
           this.resetForm();
+          if (user===null) return;
+          
           this.form.patchValue(user);
           user.addresses.forEach(ad => this.addAddress(ad))
         }
