@@ -1,0 +1,13 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .data {
+        display: flex;
+        gap: 1rem
+    }
+    button {
+        width: min-content;
+        padding: .5rem;
+    }
+}
