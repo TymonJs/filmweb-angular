@@ -1,11 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-interface User {
-  name: string,
-  lastname: string,
-  email: string
-}
+import { CurrentUserService } from '../service/current-user-service';
+import { User } from '../interfaces/user.interface';
 
 interface UserForm {
   name: FormControl<string | null>,
@@ -27,8 +23,10 @@ export class UserFormComponent {
     email: new FormControl("")
   })
 
+  constructor(private CurrentUserService: CurrentUserService){}
+
   submit(form: FormGroup<UserForm>){
-    console.log("click");
-    
+    this.CurrentUserService.editUser(form.value as User);
+    this.form.reset();
   }
 }

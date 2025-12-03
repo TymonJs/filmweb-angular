@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { delay, forkJoin, from, interval, map, merge, of, take, tap, toArray, zip } from 'rxjs';
 import { NavbarComponent } from "./navbar-component/navbar-component";
 import { UserFormComponent } from "./user-form-component/user-form-component";
+import { AlertComponent } from "./alert-component/alert-component";
 
 interface Child {
   id: number,
@@ -15,14 +16,14 @@ interface Adult extends Child {
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, UserFormComponent],
+  imports: [NavbarComponent, UserFormComponent, AlertComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
   protected users!: Child[];
   ngOnInit(): void {
-    // this.randomNum().subscribe()
+    this.randomNum().subscribe()
 
     forkJoin([this.getUser(),this.getChild()])
       .pipe(
