@@ -1,0 +1,14 @@
+.row {
+    display: flex;
+    gap: 1rem;
+
+    * {
+        width: 5rem;
+    }
+}
+
+.table{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

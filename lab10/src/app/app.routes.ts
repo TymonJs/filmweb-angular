@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router';
-import { BookListComponent } from './pages/book/book-list-component/book-list-component';
-import { PageNotFoundComponent } from './page-not-found-component/page-not-found-component';
-import { BookDetailsComponent } from './pages/book/book-details-component/book-details-component';
+import { PageNotFoundComponent } from './pages/page-not-found-component/page-not-found-component';
+import { MainComponent } from './main-component/main-component';
 
 export const routes: Routes = [
+    {
+        path: "",
+        pathMatch: "full",
+        component: MainComponent
+    },
     {
         path: "book",
         loadChildren: () => import("./pages/book/book.routes").then(r => r.BOOK_ROUTES)
@@ -13,7 +17,12 @@ export const routes: Routes = [
         loadChildren: () => import("./pages/info/info.routes").then(r => r.INFO_ROUTES)
     },
     {
-        path: "**",
+        path: "not-found",
         component: PageNotFoundComponent
-    }
+    },
+    {
+        path: "**",
+        redirectTo: "not-found"
+    },
+    
 ]

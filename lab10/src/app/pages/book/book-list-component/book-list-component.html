@@ -1,1 +1,17 @@
-<p>book-list-component works!</p>
+<div class="table">
+    <div class="row">
+        <strong>Id</strong>
+        <strong>Title</strong>
+        <strong>Author</strong>
+    </div>
+    @for(book of books; track $index){
+        <div class="row">
+            <p>{{ book.id }}</p>
+            <p>{{ book.title }}</p>
+            <p>{{ book.author }}</p>
+            <button (click)="view(book.id)">Podgląd</button>
+            <button (click)="edit(book.id)">Edytuj</button>
+            <button (click)="remove(book.id)">Usuń</button>
+        </div>
+    }
+</div>

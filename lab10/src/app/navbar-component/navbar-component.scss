@@ -5,4 +5,11 @@ nav{
     padding: 1rem;
     gap: 1rem;
     justify-content: end;
+
+    a {
+        text-decoration: none;
+        &.active{
+            text-decoration: underline;            
+        }
+    }
 }

@@ -1,5 +1,10 @@
 <div class="content">
   <app-navbar-component></app-navbar-component>
-  <router-outlet></router-outlet>
+  <div class="body">
+    @if (location.path() !== ""){
+      <button (click)="goBack()">Wróć</button>
+    }
+    <router-outlet></router-outlet>
+  </div>
   <app-footer-component></app-footer-component>
 </div>
