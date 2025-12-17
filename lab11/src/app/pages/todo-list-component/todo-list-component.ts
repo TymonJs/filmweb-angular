@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../service/todo-service';
 import { TodoDto } from '../../dto/todo.interface';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list-component',
@@ -30,5 +31,11 @@ export class TodoListComponent implements OnInit{
   remove(id: number){
 
     this.TodoService.remove(id)
+      .pipe(
+        switchMap(() => this.TodoService.getAll())
+      )
+      .subscribe(next => {
+        this.todos = next;
+      })
   }
 }

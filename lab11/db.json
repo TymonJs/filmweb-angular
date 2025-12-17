@@ -1,9 +1,14 @@
 {
-    "todo": [
-        {"id": 1, "name": "Design something", "isComplete": true},
-        {"id": 2, "name": "Design some other thing", "isComplete": false},
-        {"id": 3, "name": "Implement something", "isComplete": true},
-        {"id": 4, "name": "Implement some other thing", "isComplete": false},
-        {"id": 5, "name": "Deploy everything", "isComplete": false}
-    ]
+  "todo": [
+    {
+      "id": "1",
+      "name": "Design something",
+      "isComplete": true
+    },
+    {
+      "id": "5",
+      "name": "Deploy everything",
+      "isComplete": false
+    }
+  ]
 }

@@ -16,7 +16,7 @@ export class TodoService {
   }
 
   remove(id: number): Observable<string>{
-    return this.httpClient.delete(environment + this.ID + `/${id}`, {
+    return this.httpClient.delete(environment.serverUrl + this.ID + `/${id}`, {
       responseType: "text"
     })
   }

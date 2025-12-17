@@ -1,9 +1,11 @@
 @for(todo of todos; track $index){
 
-    <p>{{todo.id}}. {{todo.name}} - completed: {{todo.isComplete}} </p>
-
-    <button (click)="edit(todo.id)">Edytuj</button>
-    <button (click)="remove(todo.id)">Usuń</button>
+    <div class="row">
+        <p>{{todo.id}}. {{todo.name}} - completed: {{todo.isComplete}} </p>
+    
+        <button (click)="edit(todo.id)">Edytuj</button>
+        <button (click)="remove(todo.id)">Usuń</button>
+    </div>
 }
 
 <button (click)="add()">Dodaj nowy</button>

@@ -1,0 +1,9 @@
+.row {
+    display: flex;
+    gap: 1rem;
+
+    button {
+        width: min-content;
+        padding: .25rem;
+    }
+}
