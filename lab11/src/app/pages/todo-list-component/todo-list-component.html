@@ -1,0 +1,9 @@
+@for(todo of todos; track $index){
+
+    <p>{{todo.id}}. {{todo.name}} - completed: {{todo.isComplete}} </p>
+
+    <button (click)="edit(todo.id)">Edytuj</button>
+    <button (click)="remove(todo.id)">Usuń</button>
+}
+
+<button (click)="add()">Dodaj nowy</button>
