@@ -2,12 +2,37 @@
   "todo": [
     {
       "id": "1",
-      "name": "Design something",
+      "name": "Design something jeab",
+      "isComplete": false
+    },
+    {
+      "id": "2",
+      "name": "Design some other thing",
+      "isComplete": true
+    },
+    {
+      "id": "3",
+      "name": "Implement some",
       "isComplete": true
     },
     {
       "id": "5",
-      "name": "Deploy everything",
+      "name": "Deploy everythin",
+      "isComplete": true
+    },
+    {
+      "id": "1d07",
+      "name": "normalna nazwaaa",
+      "isComplete": true
+    },
+    {
+      "id": "5d38",
+      "name": "fefed",
+      "isComplete": true
+    },
+    {
+      "id": "7cd1",
+      "name": "ffff",
       "isComplete": false
     }
   ]

@@ -2,10 +2,13 @@
 
     <div class="row">
         <p>{{todo.id}}. {{todo.name}} - completed: {{todo.isComplete}} </p>
-    
+
         <button (click)="edit(todo.id)">Edytuj</button>
         <button (click)="remove(todo.id)">Usuń</button>
     </div>
 }
+<button [disabled]="page<=1" (click)="prevPage()"><</button>
+<button [disabled]="page>=maxPage" (click)="nextPage()">></button>
 
+<br>
 <button (click)="add()">Dodaj nowy</button>

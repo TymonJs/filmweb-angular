@@ -13,22 +13,24 @@ import { switchMap } from 'rxjs';
 export class TodoListComponent implements OnInit{
 
   protected todos!: TodoDto[];
+  protected page = 1;
+  protected maxPage: number = Infinity;
 
   constructor(private TodoService: TodoService, private router: Router){}
 
   ngOnInit(): void {
-    this.TodoService.getAll().subscribe(next => {
-      this.todos = next;
+    this.TodoService.getPage(this.page).subscribe(next => {
+      this.todos = next.data;
     })
   }
 
   add(){
     this.router.navigate(["form"]);
   }
-  edit(id: number){
+  edit(id: string){
     this.router.navigate(["form",id]);
   }
-  remove(id: number){
+  remove(id: string){
 
     this.TodoService.remove(id)
       .pipe(
@@ -36,6 +38,34 @@ export class TodoListComponent implements OnInit{
       )
       .subscribe(next => {
         this.todos = next;
+      })
+  }
+  nextPage(){
+    this.TodoService.getPage(this.page+1)
+      .subscribe({
+        next: (page) => {
+          this.page+=1;
+          this.maxPage = page.last;
+          this.todos = page.data;
+        },
+        error: (err) => {
+          console.log(err);
+          
+        }
+      })
+  }
+
+  prevPage(){
+    this.TodoService.getPage(this.page-1)
+      .subscribe({
+        next: (page) => {
+          this.page-=1;
+          this.todos = page.data;
+        },
+        error: (err) => {
+          console.log(err);
+          
+        }
       })
   }
 }

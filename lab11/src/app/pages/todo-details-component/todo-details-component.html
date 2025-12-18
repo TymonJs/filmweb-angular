@@ -1,1 +1,7 @@
-<p>todo-details-component works!</p>
+@if(todo){
+    <h2>id: {{todo.id}}</h2>
+    <h2>nazwa: {{todo.name}}</h2>
+    <h2>ukończony: {{todo.isComplete}}</h2>
+    <button (click)="edit()">Edytuj</button>
+    <button (click)="remove()">Usuń</button>
+}
