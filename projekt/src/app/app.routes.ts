@@ -3,6 +3,8 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { LibraryComponent } from './pages/library/library.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -17,6 +19,11 @@ export const routes: Routes = [
     {
         path: "register",
         component: RegisterComponent
+    },
+    {
+        path: "library",
+        component: LibraryComponent,
+        canActivate: [authGuard]
     },
     {
         path: "**",

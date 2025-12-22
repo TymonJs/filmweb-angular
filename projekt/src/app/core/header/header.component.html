@@ -4,12 +4,19 @@
     </ng-template>
     
     <ng-template #end>
-        <div class="gap">
-            <p-button icon="pi pi-user" label="Log in" routerLink="/login"></p-button>
-            <!-- <p-button icon="pi pi-user" label="Register" routerLink="/register" severity="secondary"></p-button> -->
-        </div>
-        <!-- <a>
-            <p-avatar icon="pi pi-user" shape="circle"/>
-        </a> -->
+        @if (user$ | async){
+            <div class="row">
+                <p>{{user$.value?.username}}</p>
+                <button (click)="logout()">Log out</button>
+                <a>
+                    <p-avatar icon="pi pi-user" shape="circle"/>
+                </a>
+            </div>
+        }
+        @else {
+            <div class="gap">
+                <p-button icon="pi pi-user" label="Log in" routerLink="/login"></p-button>
+            </div>
+        }
     </ng-template>
 </p-menubar>

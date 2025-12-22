@@ -35,14 +35,8 @@ export class RegisterComponent {
     })
   })
 
-  private userService!: UserService;
-  private router!: Router;
-
-  constructor(){
-    this.userService = inject(UserService);
-    this.router = inject(Router);
-  }
-
+  private userService = inject(UserService);
+  private router = inject(Router);
 
   submit(form: FormGroup<RegisterForm>){
 

@@ -11,7 +11,9 @@ export interface User {
     }
 }
 
-export interface AuthUser extends User, AccessToken{}
+export interface AuthUser extends AccessToken{
+    user: User
+}
 
 export interface AccessToken {
     readonly accessToken: string

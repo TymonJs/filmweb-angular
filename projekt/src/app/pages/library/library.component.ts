@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-library',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class LibraryComponent {
 
+  protected userService!: UserService;
+
+  constructor(){
+    this.userService = inject(UserService)
+  }
 }
