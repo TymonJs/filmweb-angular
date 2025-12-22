@@ -1,0 +1,119 @@
+<form [formGroup]="form">
+    <h1>Create an account</h1>
+
+    <p-stepper [value]="1">
+        <p-step-list>
+            <p-step [value]="1">Credentials</p-step>
+            <p-step [value]="2" 
+                [disabled]="form.controls.username.invalid || form.controls.password.invalid || form.controls.email.invalid">
+                Address</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div>
+                        <div class="column">
+                            <p-iftalabel>
+                                <input id="username" pInputText formControlName="username"/>
+                                <label for="username">Username</label>
+                                @if (form.controls.username.touched ){
+                                    @if (form.controls.username.errors?.["required"]){
+                                        <p class="error">Username is required</p>
+                                    }
+                                    @else if(form.controls.username.errors?.["minlength"]){
+                                        <p class="error">3 or more characters</p>
+                                    }
+                                }
+                            </p-iftalabel>
+                        
+                            <p-iftalabel>
+                                <input id="password" pInputText formControlName="password" type="password"/>
+                                <label for="password">Password</label>
+                                @if (form.controls.password.touched ){
+                                    @if (form.controls.password.errors?.["required"]){
+                                        <p class="error">Password is required</p>
+                                    }
+                                    @else if(form.controls.password.errors?.["minlength"]){
+                                        <p class="error">5 or more characters</p>
+                                    }
+                                }
+                            </p-iftalabel>
+
+                             <p-iftalabel>
+                                <input id="email" pInputText formControlName="email" type="email"/>
+                                <label for="email">Email</label>
+                                @if (form.controls.email.touched ){
+                                    @if (form.controls.email.errors?.["required"]){
+                                        <p class="error">Email is required</p>
+                                    }
+                                    @else if(form.controls.email.errors?.["email"]){
+                                        <p class="error">Enter a valid email</p>
+                                    }
+                                    @else if(form.controls.email.errors?.["emailTaken"]){
+                                        <p class="error">{{form.controls.email.value}} is already registered</p>
+                                    }
+                                }
+                            </p-iftalabel>
+                        </div>
+                    </div>
+                    <div class="next">
+                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="form.controls.username.invalid || form.controls.password.invalid || form.controls.email.invalid"/>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div>
+                        <div class="column" formGroupName="address">
+                            <p-iftalabel>
+                                <input id="city" pInputText formControlName="city"/>
+                                <label for="city">City</label>
+                                @if (form.controls.address.controls.city.touched){
+                                    @if (form.controls.address.controls.city.errors?.["required"]){
+                                        <p class="error">City is required</p>
+                                    }
+                                }
+                            </p-iftalabel>
+
+                            <p-iftalabel>
+                                <input id="street" pInputText formControlName="street"/>
+                                <label for="street">Street</label>
+                                @if (form.controls.address.controls.street.touched ){
+                                    @if (form.controls.address.controls.street.errors?.["required"]){
+                                        <p class="error">Street is required</p>
+                                    }
+                                }
+                            </p-iftalabel>
+
+                            <p-iftalabel>
+                                <p-inputMask mask="99-999" placeholder="12-345" id="postal" formControlName="postal" appPostalValid/>
+                                <label for="postal">Postal code</label>
+                                @if (form.controls.address.controls.postal.touched ){
+                                    @if (form.controls.address.controls.postal.errors?.["required"]){
+                                        <p class="error">Postal is required</p>
+                                    }
+                                    @else if(form.controls.address.controls.postal.errors?.["postalInvalid"]){
+                                        <p class="error">Enter a valid postal code</p>
+                                    }
+                                }
+                                
+                            </p-iftalabel>
+                        </div>
+                        @if(form.controls.email.errors?.["emailTaken"]){
+                            <p class="error">{{form.controls.email.value}} is already registered</p>
+                        }
+                    </div>
+                    <div class="steps">
+                        <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                        <p-button label="Submit" icon="pi pi-check" iconPos="right" (onClick)="submit(form)" [disabled]="form.invalid"/>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+
+    <!-- <p-button [disabled]="form.invalid">Submit</p-button> -->
+    <p>Already have an account? <a routerLink="/login">Log in</a></p>
+    <!-- <p-inputmask mask="12-123" formControlName="postal" placeholder="12-123" /> -->
+</form>

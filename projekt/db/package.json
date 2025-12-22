@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx json-server-auth db.json --routes routes.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
-    "json-server": "^1.0.0-beta.3",
+  "devDependencies": {
+    "json-server": "^0.17.4",
     "json-server-auth": "^2.1.0"
   }
 }

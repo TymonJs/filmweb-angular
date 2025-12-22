@@ -1,0 +1,113 @@
+{
+  "users": [
+    {
+      "email": "asd@gmail.com",
+      "password": "$2a$10$z43ZNzw/4EQ4ED06F0SqUuQ.j.HYWi8C2r2cAodfrfPUjI4L5qS4.",
+      "username": "asda",
+      "address": {
+        "street": "sdfsa",
+        "city": "fdsfasf",
+        "postal": "12-321"
+      },
+      "id": 1
+    },
+    {
+      "email": "asd123@gmail.com",
+      "password": "$2a$10$3CX155tBpOtwYlaFvwt24OlrDjv0dKQSHo/Od.O20GsWSHmPEint6",
+      "username": "asda",
+      "address": {
+        "street": "asda",
+        "city": "asd",
+        "postal": "12-321"
+      },
+      "id": 2
+    },
+    {
+      "email": "asdadas@aldfsdf.com",
+      "password": "$2a$10$SPULYai2Gh14KwysXk/a5e8kD2RlVMbHlZOGqvNTW4YjKBzjPxybC",
+      "username": "dasdasdas",
+      "address": {
+        "street": "dsada",
+        "city": "adsdada",
+        "postal": "23-312"
+      },
+      "id": 3
+    },
+    {
+      "email": "sdadsas@gm",
+      "password": "$2a$10$wjQ7L/blrnQe53J8HfouzOdh6/KMtLA8IoOsFA4iqc1RzB9gsWAfe",
+      "username": "asdasdada",
+      "address": {
+        "street": "fdsafsa",
+        "city": "dsfsdfad",
+        "postal": "41-232"
+      },
+      "id": 4
+    },
+    {
+      "email": "asd@gmail",
+      "password": "$2a$10$dTbeR3WM4PQMgoQ.CSW8TOHMV.wqSdTZE0ePVe4GMBaqMoi5lQqTm",
+      "username": "asda",
+      "address": {
+        "street": "asfdsa",
+        "city": "sadfsa",
+        "postal": "23-132"
+      },
+      "id": 5
+    },
+    {
+      "email": "sdfsda@gm",
+      "password": "$2a$10$fQDeUq0J0oKEaXQ4woOMFO92x6rXK9DRXGdaoLHMUoUVlgoq2AZp.",
+      "username": "asdadasd",
+      "address": {
+        "street": "asda",
+        "city": "asd",
+        "postal": "32-133"
+      },
+      "id": 6
+    },
+    {
+      "email": "asdds@gma",
+      "password": "$2a$10$TD.CHnzIdiiRZ9iNbWICC.Apuggx/G7gsIyaalaqgHYJlmi/VkXxO",
+      "id": 7
+    },
+    {
+      "email": "asdaf@gmai",
+      "password": "$2a$10$cVFrXpeE1BN0I1BegfcCcOhdhrKl90ged0tpf/XS6lFVEUVx08voG",
+      "id": 8
+    },
+    {
+      "email": "zxc@gma",
+      "password": "$2a$10$nKTCx6fBLDBH39cR/jXutu5CrePQsXQNmUAGARmlmxRFbt6gfBuQG",
+      "id": 9
+    },
+    {
+      "email": "kfdjhngpfdg@gs",
+      "password": "$2a$10$2uAbPWyvU5mI5dGRXDunzeluyN.5M3eCMiL/pH9tPHau/qF7KY0gC",
+      "id": 10
+    },
+    {
+      "email": "gdsfgdsgdsg@g",
+      "password": "$2a$10$EOnjFhOIbfzgVD9P1dJjX.pF94A06Ol1qBw2Xh./IN9Ll2Yhp4kzS",
+      "id": 11
+    },
+    {
+      "email": "fasola@gmail.com",
+      "password": "$2a$10$pziUtOy/pbRc5iGn6fKOi.GjL4cCweODHgQhmIZI3O9UkhYJy2kti",
+      "username": "fasola",
+      "address": {
+        "street": "fasola",
+        "city": "fasola",
+        "postal": "99-999"
+      },
+      "id": 12
+    }
+  ],
+  "films": [
+    {
+      "id": 1,
+      "title": "Avatar: Fire and ash",
+      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg"
+    }
+  ]
+}

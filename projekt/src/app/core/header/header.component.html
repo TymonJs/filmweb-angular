@@ -1,0 +1,15 @@
+<p-menubar [model]="items">
+    <ng-template #start>
+        <h1 routerLink="/"><span>Film</span>eo</h1>
+    </ng-template>
+    
+    <ng-template #end>
+        <div class="gap">
+            <p-button icon="pi pi-user" label="Log in" routerLink="/login"></p-button>
+            <!-- <p-button icon="pi pi-user" label="Register" routerLink="/register" severity="secondary"></p-button> -->
+        </div>
+        <!-- <a>
+            <p-avatar icon="pi pi-user" shape="circle"/>
+        </a> -->
+    </ng-template>
+</p-menubar>

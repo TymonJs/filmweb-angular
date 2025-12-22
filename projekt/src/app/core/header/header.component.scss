@@ -1,0 +1,21 @@
+p-menubar {
+    display: flex;
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: white;
+        &:hover{
+            cursor: pointer;
+        }
+        span {
+            color: rgb(88, 201, 175)
+        }
+
+    }
+
+    .gap {
+        display: flex;
+        gap: 1rem;
+    }
+}
