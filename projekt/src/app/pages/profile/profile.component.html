@@ -1,5 +1,5 @@
 <div class="profile-card centered">
-    
+
   <div class="profile-header">
     <div class="left">
       <p-avatar icon="pi pi-user" shape="circle" size="xlarge" class="avatar"></p-avatar>
@@ -8,27 +8,44 @@
         <p class="email">{{ user?.email }}</p>
       </div>
     </div>
-    <div class="actions">
-      <p-button label="Edit" class="edit-btn p-button-outlined p-button-rounded"></p-button>
-    </div>
   </div>
 
+  <h2>Proifle data</h2>
   <div class="profile-body">
     <section class="info-card public">
-      <h3>Public data</h3>
+      <h3>General</h3>
       <div class="info-grid">
-        <div class="info-row"><span class="label">Username</span><span class="value">{{ user?.username }}</span></div>
-        <div class="info-row"><span class="label">Email</span><span class="value">{{ user?.email }}</span></div>
+        <div class="info-row">
+            <span class="label">Username</span>
+            <span class="value">{{ user?.username }}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Email</span>
+            <span class="value">{{ user?.email }}</span>
+        </div>
       </div>
     </section>
 
     <section class="info-card private">
-      <h3>Private data</h3>
+      <h3>Address</h3>
       <div class="info-grid">
-        <div class="info-row"><span class="label">City</span><span class="value">{{user?.address?.city}}</span></div>
-        <div class="info-row"><span class="label">Street</span><span class="value">{{user?.address?.street}}</span></div>
-        <div class="info-row"><span class="label">Postal</span><span class="value">{{user?.address?.postal}}</span></div>
+        <div class="info-row">
+            <span class="label">City</span>
+            <span class="value">{{user?.address?.city}}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Street</span>
+            <span class="value">{{user?.address?.street}}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Postal</span>
+            <span class="value">{{user?.address?.postal}}</span>
+        </div>
       </div>
     </section>
+  </div>
+
+  <div class="save">
+      <p-button label="Save" icon="pi pi-check" ></p-button>
   </div>
 </div>

@@ -15,11 +15,13 @@ export const routes: Routes = [
     },
     {
         path: "login",
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [authGuard]
     },
     {
         path: "register",
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate: [authGuard]
     },
     {
         path: "library",

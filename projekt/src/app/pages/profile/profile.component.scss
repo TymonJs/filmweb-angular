@@ -44,11 +44,6 @@ $text-muted: #9499a1;
       color: $text-muted;
     }
   }
-  .actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
 }
 
 .profile-body {
@@ -87,17 +82,13 @@ $text-muted: #9499a1;
   }
 }
 
+.save{
+    display: flex;
+    justify-content: flex-end;
+}
+
 @media (min-width: 720px) {
   .profile-body {
     flex-direction: row;
   }
-}
-
-@media (max-width: 520px) {
-  .profile-card { 
-    padding: 1rem;
- }
-  .username { 
-    font-size: 1.05rem;
- }
 }
