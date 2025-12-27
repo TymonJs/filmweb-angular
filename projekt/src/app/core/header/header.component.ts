@@ -38,7 +38,6 @@ export class HeaderComponent{
 
   protected userService = inject(UserService);
   private router = inject(Router);
-
   protected user$ = this.userService.user$;
 
   logout(){

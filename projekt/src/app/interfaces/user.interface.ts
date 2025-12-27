@@ -12,7 +12,7 @@ export interface User {
 }
 
 export interface AuthUser extends AccessToken{
-    user: User
+    readonly user: User
 }
 
 export interface AccessToken {

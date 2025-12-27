@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { authGuard } from './core/guards/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,11 @@ export const routes: Routes = [
     {
         path: "library",
         component: LibraryComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: "profile",
+        component: ProfileComponent,
         canActivate: [authGuard]
     },
     {
