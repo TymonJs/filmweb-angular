@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })  
-export class HeaderComponent{
+export class HeaderComponent implements OnInit{
   protected items = [
     { 
       label: 'Films', 
@@ -39,6 +39,13 @@ export class HeaderComponent{
   protected userService = inject(UserService);
   private router = inject(Router);
   protected user$ = this.userService.user$;
+
+  ngOnInit(): void {
+    this.userService.verifyToken().subscribe({
+      next: (res) => this.userService.user$.next(res),
+      error: () => this.userService.removeToken()
+    })
+  }
 
   logout(){
     this.userService.removeToken();

@@ -3,7 +3,7 @@ import { AuthUser, LoginDto, User } from '../interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { jwtDecode } from "jwt-decode";
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,19 +14,12 @@ export class UserService {
   private ACCESS_TOKEN_KEY = "access_token";
   public user$ = new BehaviorSubject<User|null>(null);
 
-  constructor() {
-    this.verifyToken().subscribe({
-      error: () => this.removeToken()
-    })
-  }
-
   register(user: Omit<User, "id">): Observable<AuthUser>{
     return this.httpClient.post<AuthUser>(environment.serverUrl + "/users", user)
   }
 
   login(user: LoginDto): Observable<AuthUser>{
     return this.httpClient.post<AuthUser>(environment.serverUrl + "/login", user)
-
   }
 
   getToken(): string | null{
@@ -56,11 +49,8 @@ export class UserService {
       return of(null);
     }
 
-    const {sub} = jwtDecode(token)
+    const {sub} = jwtDecode(token);
 
-    return this.httpClient.get<User>(environment.serverUrl + `/users/${sub}`)
-      .pipe(
-        tap(user => this.saveUser(user))
-      )
+    return this.httpClient.get<User>(environment.serverUrl + `/users/${sub}`);
   }
 }
