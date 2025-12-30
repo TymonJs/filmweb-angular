@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthUser, User } from '../../interfaces/user.interface';
 import { PostalValid } from '../../core/validators/postal-valid.directive';
@@ -9,6 +9,9 @@ import { Router, RouterModule } from "@angular/router";
 import { StepperModule } from 'primeng/stepper';
 import { UserService } from '../../services/user.service';
 import { RegisterForm } from '../../interfaces/form.interface';
+import { switchMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-register',
@@ -18,14 +21,15 @@ import { RegisterForm } from '../../interfaces/form.interface';
     PostalValid, 
     ButtonModule, 
     StepperModule,
-    RouterModule
+    RouterModule,
+    DialogModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   protected form = new FormGroup<RegisterForm>({
-    username: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    username: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     password: new FormControl("", [Validators.required, Validators.minLength(5)]),
     email: new FormControl("",[Validators.required, Validators.email]),
     address: new FormGroup({
@@ -37,12 +41,99 @@ export class RegisterComponent {
 
   private userService = inject(UserService);
   private router = inject(Router);
+  private location = inject(Location);
+  protected isEditing = this.location.path() === "/profile/edit"
+  protected modalVisible = false;
 
-  submit(form: FormGroup<RegisterForm>){
+  ngOnInit(): void {
+    
+    const user = {...this.userService.user$.value, password: ""};
+    if (this.isEditing && user){
+      this.form.patchValue(user);
+      this.form.controls.password.clearValidators();
+      this.form.controls.password.updateValueAndValidity()    
+    }
+  }
 
+  protected get isFirstStepInvalid(){
+    const isInvalid = this.form.controls.username.invalid || this.form.controls.email.invalid;
+    if (this.isEditing) return isInvalid;
+    return isInvalid || this.form.controls.password.invalid;
+  }
+
+  protected get isSecondStepInvalid(){
+    return this.form.controls.address.invalid || this.form.controls.password.invalid || this.form.controls.email.invalid
+  }
+
+  protected get userUnchanged(){
+    const user = this.userService.user$.value;
+    const given = this.form.getRawValue();
+
+    return user?.username === given.username &&
+      user?.email === given.email && 
+      JSON.stringify(user.address) === JSON.stringify(given.address);
+  }
+
+  updateUser(){
+    const formValues = this.form.getRawValue();
+    const password = formValues.password;
+
+    if (password === null){
+      this.closeModal();
+      this.form.controls.password.setErrors({badRequest: true});
+      return;
+    }
+
+    const payload: Omit<User, "id"> = {
+      username: formValues.username as string,
+      password: password,
+      email: formValues.email as string,
+      address: formValues.address as {city: string, street: string, postal: string}
+    };
+
+    const updated: User = { ...(this.userService.user$.value), ...payload } as User;
+
+    const currentUser = this.userService.user$.value;
+    if (!currentUser){
+      this.form.controls.password.patchValue("");
+      this.form.controls.password.setErrors({badRequest: true});
+      return;
+    }
+    const email = currentUser.email as string;
+
+    this.userService.login({ email, password }).pipe(
+      switchMap(() => this.userService.updateUser(updated))
+    ).subscribe({
+      next: () => {
+        this.router.navigate(["profile"])
+      },
+      error: () => {
+        this.form.controls.password.patchValue("");
+        this.form.controls.password.setErrors({badRequest: true});
+      }
+    })
+
+  }
+
+  showModal(){
+    this.form.controls.password.addValidators([Validators.required]);
+    this.form.controls.password.updateValueAndValidity();
+    this.modalVisible = true;
+  }
+
+  closeModal(){
+    this.modalVisible = false;
+    this.form.controls.password.patchValue("");
+    this.form.controls.password.clearValidators();
+    this.form.controls.password.updateValueAndValidity();
+  }
+
+  register(){
+    const form: FormGroup<RegisterForm> = this.form;
     this.userService.register(form.value as Omit<User, "id">).subscribe({
       next: (res: AuthUser) => {
         this.userService.saveToken(res.accessToken);
+        this.userService.saveUser(res.user);
         this.router.navigate(["/"]);
 
       },

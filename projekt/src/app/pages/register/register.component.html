@@ -1,12 +1,16 @@
 <form [formGroup]="form">
-    <h1>Create an account</h1>
+    @if (isEditing) {
+        <h1>Update account</h1>
+    }
+    @else {
+        <h1>Create an account</h1>
+    }
 
     <p-stepper [value]="1">
         <p-step-list>
             <p-step [value]="1">Credentials</p-step>
-            <p-step [value]="2" 
-                [disabled]="form.controls.username.invalid || form.controls.password.invalid || form.controls.email.invalid">
-                Address</p-step>
+            <p-step [value]="2" [disabled]="isFirstStepInvalid">Address</p-step>
+
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
@@ -23,21 +27,26 @@
                                     @else if(form.controls.username.errors?.["minlength"]){
                                         <p class="error">3 or more characters</p>
                                     }
-                                }
-                            </p-iftalabel>
-                        
-                            <p-iftalabel>
-                                <input id="password" pInputText formControlName="password" type="password"/>
-                                <label for="password">Password</label>
-                                @if (form.controls.password.touched ){
-                                    @if (form.controls.password.errors?.["required"]){
-                                        <p class="error">Password is required</p>
-                                    }
-                                    @else if(form.controls.password.errors?.["minlength"]){
-                                        <p class="error">5 or more characters</p>
+                                    @else if(form.controls.username.errors?.["maxlength"]){
+                                        <p class="error">15 or less characters</p>
                                     }
                                 }
                             </p-iftalabel>
+                            
+                            @if(!isEditing){
+                                <p-iftalabel>
+                                    <input id="password" pInputText formControlName="password" type="password"/>
+                                    <label for="password">Password</label>
+                                    @if (form.controls.password.touched ){
+                                        @if (form.controls.password.errors?.["required"]){
+                                            <p class="error">Password is required</p>
+                                        }
+                                        @else if(form.controls.password.errors?.["minlength"]){
+                                            <p class="error">5 or more characters</p>
+                                        }
+                                    }
+                                </p-iftalabel>
+                            }
 
                              <p-iftalabel>
                                 <input id="email" pInputText formControlName="email" type="email"/>
@@ -57,7 +66,7 @@
                         </div>
                     </div>
                     <div class="next">
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="form.controls.username.invalid || form.controls.password.invalid || form.controls.email.invalid"/>
+                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="isFirstStepInvalid"/>
                     </div>
                 </ng-template>
             </p-step-panel>
@@ -106,14 +115,45 @@
                     </div>
                     <div class="steps">
                         <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
-                        <p-button label="Submit" icon="pi pi-check" iconPos="right" (onClick)="submit(form)" [disabled]="form.invalid"/>
+                        @if(isEditing){
+                            <p-button label="Update" icon="pi pi-check" iconPos="right" (onClick)="showModal()" [disabled]="form.invalid || userUnchanged"/>
+                        }
+                        @else{
+                            <p-button label="Submit" icon="pi pi-check" iconPos="right" (onClick)="register()" [disabled]="form.invalid"/>
+                        }
                     </div>
                 </ng-template>
             </p-step-panel>
         </p-step-panels>
     </p-stepper>
 
-    <!-- <p-button [disabled]="form.invalid">Submit</p-button> -->
-    <p>Already have an account? <a routerLink="/login">Log in</a></p>
-    <!-- <p-inputmask mask="12-123" formControlName="postal" placeholder="12-123" /> -->
+    <p-dialog [modal]="true" [(visible)]="modalVisible" (onHide)="form.controls.password.patchValue('')">
+        <ng-template #header>
+            <h3>Update profile</h3>
+        </ng-template>
+        <div class="column">
+            <p>Enter your password to confirm changes</p>
+            <p-iftalabel>
+                <input id="passwordConfirm" pInputText formControlName="password" type="password"/>
+                <label for="passwordConfirm">Password</label>
+                @if (form.controls.password.touched ){
+                    @if (form.controls.password.errors?.["required"]){
+                        <p class="error">Password is required</p>
+                    }
+                }
+            </p-iftalabel>
+        </div>
+        @if(form.controls.password.errors?.["badRequest"]){
+            <p class="error">błąd</p>
+        }
+        <ng-template #footer>
+            <p-button label="Cancel" severity="secondary" (click)="closeModal()" />
+            <p-button label="Save" (click)="updateUser()" [disabled]="form.controls.password.invalid"/>
+        </ng-template>
+    </p-dialog>
+
+     @if(!isEditing){
+         <p>Already have an account? <a routerLink="/login">Log in</a></p>
+     }
+    
 </form>

@@ -1,15 +1,11 @@
 <p-menubar [model]="items">
     <ng-template #start>
-        <h1 routerLink="/"><span>Film</span>eo</h1>
+        <h1 routerLink="/"><span>Film</span>base</h1>
     </ng-template>
     
     <ng-template #end>
         @if (user$ | async){
             <div class="row">
-                <button (click)="logout()" pButton size="small">
-                    <span pButtonLabel>Log out</span>
-                    <i class="pi pi-sign-out" pButtonIcon></i>
-                </button>
                 <h2>{{user$.value?.username}}</h2>
                 <a routerLink="/profile">
                     <p-avatar icon="pi pi-user" shape="circle"/>

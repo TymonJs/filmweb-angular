@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { HeaderComponent } from "./core/header/header.component";
+import { HeaderComponent } from "./core/components/header/header.component";
 
 @Component({
   selector: 'app-root',

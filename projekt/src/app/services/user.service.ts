@@ -40,6 +40,10 @@ export class UserService {
     this.user$.next(user);
   }
 
+  updateUser(user: User): Observable<User>{
+    return this.httpClient.put<User>(environment.serverUrl + `/users/${user.id}`, user)
+  }
+
   removeToken(): void{
     localStorage.removeItem(this.ACCESS_TOKEN_KEY)
     this.user$.next(null)
@@ -56,7 +60,7 @@ export class UserService {
 
     return this.httpClient.get<User>(environment.serverUrl + `/users/${sub}`)
       .pipe(
-        tap(user => this.user$.next(user))
+        tap(user => this.saveUser(user))
       )
   }
 }

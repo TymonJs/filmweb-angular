@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { authGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { FilmsComponent } from './pages/films/films.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +33,15 @@ export const routes: Routes = [
         path: "profile",
         component: ProfileComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: "profile/edit",
+        component: RegisterComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: "films",
+        component: FilmsComponent
     },
     {
         path: "**",

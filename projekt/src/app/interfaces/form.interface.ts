@@ -17,3 +17,9 @@ export interface RegisterForm {
     readonly email: FormControl<string | null>,
     readonly address: FormGroup<Address>
 }
+
+export interface ProfileForm {
+    readonly username: FormControl<string | null>,
+    readonly email: FormControl<string | null>,
+    readonly address: FormGroup<Address>
+}

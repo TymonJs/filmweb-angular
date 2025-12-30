@@ -1,26 +1,15 @@
 {
   "users": [
     {
-      "email": "asd@gmail.com",
-      "password": "$2a$10$z43ZNzw/4EQ4ED06F0SqUuQ.j.HYWi8C2r2cAodfrfPUjI4L5qS4.",
-      "username": "asda",
-      "address": {
-        "street": "sdfsa",
-        "city": "fdsfasf",
-        "postal": "12-321"
-      },
-      "id": 1
-    },
-    {
       "email": "fasola@gmail.com",
-      "password": "$2a$10$pziUtOy/pbRc5iGn6fKOi.GjL4cCweODHgQhmIZI3O9UkhYJy2kti",
+      "password": "$2a$10$v.eQ2hyP0nVoqToHWpLhUu2ZWwYmjq8C95d/Y83SCKr3Df/CnmscW",
       "username": "fasola",
       "address": {
         "street": "fasola",
-        "city": "fasola",
-        "postal": "99-999"
+        "city": "fasolaaa",
+        "postal": "11-111"
       },
-      "id": 2
+      "id": 1
     }
   ],
   "films": [

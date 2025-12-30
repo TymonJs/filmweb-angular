@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { MenubarModule } from 'primeng/menubar';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
