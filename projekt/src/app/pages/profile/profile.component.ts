@@ -32,52 +32,11 @@ export class ProfileComponent implements OnInit{
   })
 
   ngOnInit(): void {
-    const {username, email, password, address} = this.user as User
-    const {street, city, postal} = address
-    this.form.patchValue({
-      username,
-      email,
-      password,
-      address: {
-        street,
-        city,
-        postal
-      }
-    })
-  }
-
-  protected userUnchanged(given: Omit<User, "id">){
-    return this.user?.username === given.username &&
-      this.user?.email === given.email && 
-      this.user.password === given.password &&
-      JSON.stringify(this.user.address) === JSON.stringify(given.address);
-  }
-
-  protected get saveDisabled(){
-    const current = this.form.getRawValue() as Omit<User, "id">;
-    return this.form.invalid || this.userUnchanged(current);
+    this.form.patchValue(this.user as User);
   }
 
   protected edit(){
     this.router.navigate(["profile", "edit"])
-  }
-
-  protected save() {
-    if (this.saveDisabled) return;
-    
-    const current = this.form.getRawValue() as Omit<User, "id">;
-    const updated: User = { ...(this.user as User), ...current };
-
-    
-    this.userService.updateUser(updated).subscribe({
-      next: (user) => {
-        this.userService.saveUser(user);
-        this.user = user;
-      },
-      error: (err) => {
-        console.error('Failed to update user', err);
-      }
-    });
   }
 
   logout(){
