@@ -1,0 +1,59 @@
+<div class="content">
+    <div class="sidebar">
+        <div class="actions" [formGroup]="form">
+            <div class="header">
+                <h2>Search</h2>
+            </div>
+            <p-floatlabel variant="in">
+                <input pInputText id="query" formControlName="query" autocomplete="off"/>
+                <label for="query">Title</label>
+            </p-floatlabel>
+            <!-- <input type="text" placeholder="Title" formControlName="query"> -->
+            <div class="isReleased">
+                <p-checkbox binary="true" formControlName="includeUnreleased"></p-checkbox>
+                <label for="includeUnreleased">Include unreleased</label>
+            </div>
+            <p-select [options]="collections()" 
+                optionLabel="name" 
+                optionValue="id" 
+                placeholder="Collection" 
+                [checkmark]="true" 
+                [showClear]="true" 
+                [style]="{'background-color': 'rgb(59, 59, 59)'}"
+                [filter]="true"
+                filterBy="name"
+                formControlName="collectionId"
+                variant="filled"
+                >
+            </p-select>
+            
+        </div>
+        <div class="films">
+            <div class="header reactive">
+                <h2>Films</h2>
+                <button pButton size="small" (click)="add()">
+                    <i class="pi pi-plus"></i>
+                    <p pButtonLabel>Add</p>
+                </button>
+            </div>
+            @if (films()){
+                @for(film of films(); track $index){
+                    <button class="film" (click)="goToDetails(film.id)">
+                        <p>{{film.title}}</p>
+                    </button> 
+                }
+            }  
+            @else {
+                <p-progress-spinner ariaLabel="loading" />
+            }
+            </div>
+
+    </div>
+
+    <div class="details">
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur numquam quam repellendus possimus nostrum culpa eos sint eaque magni tempora?
+        </p>
+    </div>
+
+</div>

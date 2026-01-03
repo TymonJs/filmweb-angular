@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { authGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { AddFilmComponent } from './pages/add-film/add-film.component';
 import { FilmsComponent } from './pages/films/films.component';
 
 export const routes: Routes = [
@@ -42,6 +43,11 @@ export const routes: Routes = [
     {
         path: "films",
         component: FilmsComponent
+    },
+    {
+        path: "films/add",
+        component: AddFilmComponent,
+        canActivate: [authGuard]
     },
     {
         path: "**",

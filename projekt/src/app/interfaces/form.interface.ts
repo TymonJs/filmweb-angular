@@ -23,3 +23,17 @@ export interface ProfileForm {
     readonly email: FormControl<string | null>,
     readonly address: FormGroup<Address>
 }
+
+export interface FilmFilter {
+    readonly query: FormControl<string | null>,
+    readonly includeUnreleased: FormControl<boolean | null>,
+    readonly collectionId: FormControl<number | null>
+}
+
+export interface FilmForm {
+    readonly title: FormControl<string | null>,
+    readonly releaseDate: FormControl<string | null>
+    readonly length: FormControl<number | null>,
+    readonly cover: FormControl<string | null>
+    readonly collectionId: FormControl<number | null>
+}

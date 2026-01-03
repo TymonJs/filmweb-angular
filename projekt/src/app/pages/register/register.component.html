@@ -142,10 +142,10 @@
                     }
                 }
             </p-iftalabel>
+            @if(form.controls.password.errors?.["badRequest"]){
+                <p class="error">Wrong password</p>
+            }
         </div>
-        @if(form.controls.password.errors?.["badRequest"]){
-            <p class="error">błąd</p>
-        }
         <ng-template #footer>
             <p-button label="Cancel" severity="secondary" (click)="closeModal()" />
             <p-button label="Save" (click)="updateUser()" [disabled]="form.controls.password.invalid"/>

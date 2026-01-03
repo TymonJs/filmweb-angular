@@ -9,7 +9,6 @@ import { Router, RouterModule } from "@angular/router";
 import { StepperModule } from 'primeng/stepper';
 import { UserService } from '../../services/user.service';
 import { RegisterForm } from '../../interfaces/form.interface';
-import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 
@@ -101,11 +100,13 @@ export class RegisterComponent implements OnInit{
     }
     const email = currentUser.email as string;
 
-    this.userService.login({ email, password }).pipe(
-      switchMap(() => this.userService.updateUser(updated))
-    ).subscribe({
+    this.userService.login({ email, password })
+    .subscribe({
       next: () => {
-        this.router.navigate(["profile"])
+        this.userService.updateUser(updated).subscribe((next) => {
+          this.userService.user$.next(next);
+          this.router.navigate(["profile"]);
+        })
       },
       error: () => {
         this.form.controls.password.patchValue("");

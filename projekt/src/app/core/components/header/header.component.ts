@@ -23,12 +23,6 @@ export class HeaderComponent implements OnInit{
       routerLinkActiveOptions: { exact: true } 
     },
     { 
-      label: 'Users', 
-      icon: 'pi pi-users', 
-      routerLink: "/users",
-      routerLinkActiveOptions: { exact: true }
-    },
-    { 
       label: 'Library', 
       icon: 'pi pi-bookmark', 
       routerLink: "/library",

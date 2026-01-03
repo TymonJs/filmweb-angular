@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
@@ -9,5 +10,9 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './page-not-found.component.scss',
 })
 export class PageNotFoundComponent {
+  private location = inject(Location);
 
+  goBack(){
+    this.location.back();
+  }
 }

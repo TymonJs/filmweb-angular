@@ -1,0 +1,90 @@
+.content{
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    height: calc(100vh - 4.5rem);
+    .sidebar{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background-color: rgb(34, 33, 33);
+        border-right: 1px solid rgb(87, 87, 87);
+        flex: 0 3.25 25rem;
+        // flex-shrink: 1;
+    
+        overflow-y: auto;
+        .header{
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        .actions{    
+            display: flex;
+            flex-direction: column;
+            // flex: 1;
+            margin: 1rem;
+            gap: 1rem;
+            p-floatlabel{
+                display: flex;
+                input{
+                    flex: 1;
+                    // margin: 0 1rem;
+                    // padding-left: .5rem;
+                    border: none;
+                    border-bottom: 1px solid rgb(95, 95, 95);
+                    padding: 1.25rem .5rem .25rem;
+                    &:focus-visible{
+                        outline: none;
+                    }
+                }
+                label{
+                    font-weight: 400;
+                }
+            }
+
+            .isReleased{
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+            }
+
+        }
+        .films{
+             
+            display: flex;
+            flex-direction: column;
+
+    
+            .film{
+                border: none;
+                border: 1px solid rgb(87, 87, 87);
+                padding: 1rem 0.5rem;
+                background-color: rgb(37, 37, 37);
+                &:hover{
+                    cursor: pointer;
+                }
+                p{
+                    padding: 0;
+                    margin: 0;
+                    font-size: 1rem;
+                    
+                }
+            }
+        }
+    }
+    .details{
+        flex-shrink: 5;
+    }
+
+}
+.reactive{
+    margin: 1rem;
+    @media (max-width: 500px) {
+        flex-direction: column;
+        // justify-content: start; 
+        button{
+            width: 100%;
+        }
+        
+    }
+}

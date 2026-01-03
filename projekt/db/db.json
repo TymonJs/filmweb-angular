@@ -2,21 +2,121 @@
   "users": [
     {
       "email": "fasola@gmail.com",
-      "password": "$2a$10$v.eQ2hyP0nVoqToHWpLhUu2ZWwYmjq8C95d/Y83SCKr3Df/CnmscW",
       "username": "fasola",
       "address": {
         "street": "fasola",
-        "city": "fasolaaa",
+        "city": "fasola",
         "postal": "11-111"
       },
-      "id": 1
+      "id": 1,
+      "password": "$2a$10$.jlbz6c2BWFQZTLTuXz2dOmQyvXJHDYO6IBXolpSJDTOVXOIhBFKG"
+    },
+    {
+      "email": "widly@gmail.com",
+      "password": "$2a$10$8/FIC1vcdK7Z0z6qh6ZkXOw2GkgojQ0hGrJnQTTIxPaTudQA66eCK",
+      "username": "widly",
+      "address": {
+        "street": "widly",
+        "city": "widly",
+        "postal": "11-111"
+      },
+      "id": 2
     }
   ],
   "films": [
     {
       "id": 1,
       "title": "Avatar: Fire and ash",
-      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg"
+      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
+      "length": 197,
+      "releaseDate": "2025-12-20",
+      "collectionId": 1
+    },
+    {
+      "id": 1,
+      "title": "Avatar: Fire and ash",
+      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
+      "length": 197,
+      "releaseDate": "2025-12-20",
+      "collectionId": 1
+    },
+    {
+      "id": 1,
+      "title": "Avatar: Fire and ash",
+      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
+      "length": 197,
+      "releaseDate": "2025-12-20",
+      "collectionId": 1
+    },
+    {
+      "id": 1,
+      "title": "Avatar: Fire and ash",
+      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
+      "length": 197,
+      "releaseDate": "2025-12-20",
+      "collectionId": 1
+    },
+    {
+      "id": 1,
+      "title": "Avatar: Fire and ash",
+      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
+      "length": 197,
+      "releaseDate": "2025-12-20",
+      "collectionId": 1
+    },
+    {
+      "title": "asd",
+      "releaseDate": "2026-01-13T23:00:00.000Z",
+      "length": 2,
+      "cover": "adsd",
+      "collectionId": 2,
+      "id": 2
+    },
+    {
+      "title": "abece",
+      "releaseDate": "2026-01-06T23:00:00.000Z",
+      "length": 23,
+      "cover": "asda",
+      "collectionId": 3,
+      "id": 3
+    },
+    {
+      "title": "asdas",
+      "releaseDate": "2026-01-06T23:00:00.000Z",
+      "length": 232,
+      "cover": "asda",
+      "collectionId": 1,
+      "id": 4
+    },
+    {
+      "title": "najnowszy",
+      "releaseDate": "2026-01-12",
+      "length": 222,
+      "cover": "dsa",
+      "collectionId": 2,
+      "id": 5
+    },
+    {
+      "title": "nowy wydany wfilm",
+      "releaseDate": "2020-04-06",
+      "length": 200,
+      "cover": "asdsa",
+      "collectionId": 2,
+      "id": 6
+    }
+  ],
+  "collections": [
+    {
+      "id": 1,
+      "name": "Avatar"
+    },
+    {
+      "id": 2,
+      "name": "Star Wars"
+    },
+    {
+      "id": 3,
+      "name": "Harry Potter"
     }
   ]
 }
