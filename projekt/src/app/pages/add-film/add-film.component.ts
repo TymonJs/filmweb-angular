@@ -89,9 +89,9 @@ export class AddFilmComponent implements OnInit{
     }
     const cols = this.collections();
 
-    const collectionFormatted = collection.trim().toLowerCase();
+    const collectionFormatted = collection.trim()
     
-    if (cols.find(c => c.name.trim().toLowerCase() === collectionFormatted)){
+    if (cols.find(c => c.name.trim().toLowerCase() === collectionFormatted.toLowerCase())){
       this.colForm.controls.collection.setErrors({exists: true});
       return;
     }
