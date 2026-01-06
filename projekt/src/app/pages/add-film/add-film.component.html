@@ -1,5 +1,8 @@
+<p-breadcrumb [home]="home" [model]="editItems?editItems:addItems" [style]="{'background-color': 'inherit'}"/>
 <div class="form-card">
-  <h1 class="title">Add Film</h1>
+  <h1 class="title">
+    @if (isEditing) { Edit Film } @else { Add New Film }
+  </h1>
 
   <form [formGroup]="form" class="form-grid">
     <div class="left">
@@ -103,10 +106,24 @@
       }
     </div>
 
+    @if (form.touched) {
+      @if (form.errors?.['unchanged']) {
+        <p class="error">No changes were made</p>
+      }
+      @else if (form.errors?.['badRequest']){
+        <p class="error">Film couldn't be {{isEditing ? "edited" : "added"}}.</p>
+      }
+    }
     <div class="actions">
-        <button pButton type="submit" [disabled]="form.invalid" (click)="add()">
+      @if(isEditing) {
+        <button pButton type="submit" [disabled]="!canSubmitEdit" (click)="submit(true)">
+          <span pButtonLabel>Edit</span>
+        </button>
+      } @else {
+        <button pButton type="submit" [disabled]="form.invalid" (click)="submit()">
           <span pButtonLabel>Add</span>
         </button>
+      }
       </div>
     </div>
 

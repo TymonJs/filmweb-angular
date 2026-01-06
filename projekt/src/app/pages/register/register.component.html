@@ -1,3 +1,6 @@
+@if (isEditing){
+    <p-breadcrumb [home]="home" [model]="items" [style]="{'background-color': 'inherit'}"/>
+}
 <form [formGroup]="form">
     @if (isEditing) {
         <h1>Update account</h1>

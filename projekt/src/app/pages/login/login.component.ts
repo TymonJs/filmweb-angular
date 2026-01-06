@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ButtonModule } from 'primeng/button';
 import { AuthUser, LoginDto } from '../../interfaces/user.interface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent {
   })
   private userService = inject(UserService);
   private router = inject(Router);
+  private messageService = inject(MessageService);
 
   submit(form: FormGroup<LoginForm>){
     
@@ -29,9 +31,11 @@ export class LoginComponent {
         this.userService.saveToken(authUser.accessToken)
         this.userService.saveUser(authUser.user);
         this.router.navigate(["/"])
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'You have been logged in.'});
       },
       error: () => {
         this.form.setErrors({invalidCredentials: true})
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Invalid email or password.'});
       }
     })
     

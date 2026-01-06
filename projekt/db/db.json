@@ -9,7 +9,7 @@
         "postal": "11-111"
       },
       "id": 1,
-      "password": "$2a$10$.jlbz6c2BWFQZTLTuXz2dOmQyvXJHDYO6IBXolpSJDTOVXOIhBFKG"
+      "password": "$2a$10$.6lpE0w1vtvaCDbGUoqqx.WC0bnP0Yx/vlembbrg0HvJFoZ8iGeW6"
     },
     {
       "email": "widly@gmail.com",
@@ -21,6 +21,28 @@
         "postal": "11-111"
       },
       "id": 2
+    },
+    {
+      "email": "konto@gmail",
+      "password": "$2a$10$eDVEDVlATx.YbQH.66cFzekEwpirv6Crpe5ckRJbQNfFS9tZa8qdS",
+      "username": "konto",
+      "address": {
+        "street": "konto",
+        "city": "konto",
+        "postal": "12-312"
+      },
+      "id": 3
+    },
+    {
+      "email": "abece@gmail",
+      "password": "$2a$10$42z4Wlqyn4hHpgmpu/i3H.emAsk74lLkmS4.5SCFSfxephWiA9z0m",
+      "username": "abece",
+      "address": {
+        "street": "abece",
+        "city": "abece",
+        "postal": "12-321"
+      },
+      "id": 4
     }
   ],
   "films": [
@@ -33,76 +55,60 @@
       "collectionId": 1
     },
     {
-      "id": 1,
-      "title": "Avatar: Fire and ash",
-      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
-      "length": 197,
-      "releaseDate": "2025-12-20",
-      "collectionId": 1
-    },
-    {
-      "id": 1,
-      "title": "Avatar: Fire and ash",
-      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
-      "length": 197,
-      "releaseDate": "2025-12-20",
-      "collectionId": 1
-    },
-    {
-      "id": 1,
-      "title": "Avatar: Fire and ash",
-      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
-      "length": 197,
-      "releaseDate": "2025-12-20",
-      "collectionId": 1
-    },
-    {
-      "id": 1,
-      "title": "Avatar: Fire and ash",
-      "cover": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0UoNRK2H2TsR1EbzgngF4vlOsU.jpg",
-      "length": 197,
-      "releaseDate": "2025-12-20",
-      "collectionId": 1
-    },
-    {
-      "title": "asd",
-      "releaseDate": "2026-01-13T23:00:00.000Z",
-      "length": 2,
-      "cover": "adsd",
-      "collectionId": 2,
+      "title": "Avatar",
+      "releaseDate": "2009-05-11",
+      "length": 123,
+      "cover": "https://fwcdn.pl/fpo/91/13/299113/8028716_1.3.jpg",
+      "collectionId": 1,
       "id": 2
     },
     {
-      "title": "abece",
-      "releaseDate": "2026-01-06T23:00:00.000Z",
-      "length": 23,
-      "cover": "asda",
-      "collectionId": 3,
+      "title": "Avatar: The Way of Water",
+      "releaseDate": "2022-12-15",
+      "length": 321,
+      "cover": "https://fwcdn.pl/fpo/81/78/558178/8047434_1.3.jpg",
+      "collectionId": 1,
       "id": 3
     },
     {
-      "title": "asdas",
-      "releaseDate": "2026-01-06T23:00:00.000Z",
-      "length": 232,
-      "cover": "asda",
+      "title": "Avatar 4",
+      "releaseDate": "2029-12-11",
+      "length": 321,
+      "cover": "https://image.tmdb.org/t/p/w600_and_h900_face/qzMYKnT4MG1d0gnhwytr4cKhUvS.jpg",
       "collectionId": 1,
       "id": 4
     },
     {
-      "title": "najnowszy",
-      "releaseDate": "2026-01-12",
+      "title": "Harry Potter i Kamień Filozoficzny",
+      "releaseDate": "2010-04-05",
       "length": 222,
-      "cover": "dsa",
+      "cover": "https://fwcdn.pl/fpo/05/71/30571/7529392_1.8.webp",
       "collectionId": 2,
       "id": 5
     },
     {
-      "title": "nowy wydany wfilm",
-      "releaseDate": "2020-04-06",
-      "length": 200,
-      "cover": "asdsa",
+      "title": "Harry Potter i Czara Ognia",
+      "releaseDate": "2013-04-29",
+      "length": 111,
+      "cover": "https://fwcdn.pl/fpo/57/46/95746/7537945_1.8.webp",
       "collectionId": 2,
       "id": 6
+    },
+    {
+      "title": "Gwiezdne wojny: część III - Zemsta Sithów",
+      "releaseDate": "2005-05-02",
+      "length": 222,
+      "cover": "https://fwcdn.pl/fpo/59/82/5982/7718099_1.3.jpg",
+      "collectionId": 3,
+      "id": 7
+    },
+    {
+      "title": "Władca Pierścieni: Drużyna Pierścienia",
+      "releaseDate": "2001-02-06",
+      "length": 122,
+      "cover": "https://fwcdn.pl/fpo/10/65/1065/7912491_1.8.webp",
+      "collectionId": 4,
+      "id": 8
     }
   ],
   "collections": [
@@ -111,12 +117,20 @@
       "name": "Avatar"
     },
     {
-      "id": 2,
-      "name": "Star Wars"
+      "name": "Harry Potter",
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Harry Potter"
+      "name": "Star Wars",
+      "id": 3
+    },
+    {
+      "name": "Władca Pierścieni",
+      "id": 4
+    },
+    {
+      "name": "nowa kolekcja",
+      "id": 5
     }
   ]
 }

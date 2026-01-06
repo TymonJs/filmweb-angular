@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms"
+import { Sort } from "./film.interface"
 
 export interface Address {
     readonly street: FormControl<string | null>,
@@ -27,7 +28,8 @@ export interface ProfileForm {
 export interface FilmFilter {
     readonly query: FormControl<string | null>,
     readonly includeUnreleased: FormControl<boolean | null>,
-    readonly collectionId: FormControl<number | null>
+    readonly collectionId: FormControl<number | null>,
+    readonly sort: FormControl<Sort | null>
 }
 
 export interface FilmForm {

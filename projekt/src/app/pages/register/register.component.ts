@@ -11,6 +11,8 @@ import { UserService } from '../../services/user.service';
 import { RegisterForm } from '../../interfaces/form.interface';
 import { Location } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { MenuItem, MessageService } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +23,8 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule, 
     StepperModule,
     RouterModule,
-    DialogModule
+    DialogModule,
+    BreadcrumbModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -41,8 +44,24 @@ export class RegisterComponent implements OnInit{
   private userService = inject(UserService);
   private router = inject(Router);
   private location = inject(Location);
+  private messageService = inject(MessageService);
   protected isEditing = this.location.path() === "/profile/edit"
   protected modalVisible = false;
+
+  protected items: MenuItem[] = [
+    {
+      label: "Profile",
+      routerLink: "/profile"
+    },
+    {
+      label: "Update profile"
+    }
+  ]
+
+  protected home = {
+    icon: "pi pi-home",
+    routerLink: "/"
+  }
 
   ngOnInit(): void {
     
@@ -106,11 +125,14 @@ export class RegisterComponent implements OnInit{
         this.userService.updateUser(updated).subscribe((next) => {
           this.userService.user$.next(next);
           this.router.navigate(["profile"]);
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Your profile has been updated.'});
+          
         })
       },
       error: () => {
         this.form.controls.password.patchValue("");
         this.form.controls.password.setErrors({badRequest: true});
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Incorrect password. Please try again.'});
       }
     })
 
@@ -136,10 +158,12 @@ export class RegisterComponent implements OnInit{
         this.userService.saveToken(res.accessToken);
         this.userService.saveUser(res.user);
         this.router.navigate(["/"]);
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Your account has been created.'});
 
       },
-      error: () => { //_: HttpErrorResponse
+      error: () => {
         form.controls.email.setErrors({emailTaken: true});
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Email is already taken.'});
       }
     });
   }

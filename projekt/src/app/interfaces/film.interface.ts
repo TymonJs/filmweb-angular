@@ -1,7 +1,7 @@
 export interface FilmResponse {
     readonly id: number,
     readonly title: string,
-    readonly releaseDate: Date,
+    readonly releaseDate: string,
     readonly length: number
     readonly cover: string,
     readonly collection: Collection
@@ -25,4 +25,8 @@ export interface Filter {
     readonly query: string,
     readonly includeUnreleased: boolean,
     readonly collectionId: number
+    readonly sort: Sort
 }
+
+export type Sort = "A-Z" | "Z-A" | "Latest" | "Oldest" | "Longest" | "Shortest"
+

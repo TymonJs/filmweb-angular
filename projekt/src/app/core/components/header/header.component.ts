@@ -21,12 +21,6 @@ export class HeaderComponent implements OnInit{
       icon: 'pi pi-video', 
       routerLink: "/films",
       routerLinkActiveOptions: { exact: true } 
-    },
-    { 
-      label: 'Library', 
-      icon: 'pi pi-bookmark', 
-      routerLink: "/library",
-      routerLinkActiveOptions: { exact: true }
     }
   ];
 
@@ -39,11 +33,6 @@ export class HeaderComponent implements OnInit{
       next: (res) => this.userService.user$.next(res),
       error: () => this.userService.removeToken()
     })
-  }
-
-  logout(){
-    this.userService.removeToken();
-    this.router.navigate(["/"])
   }
 
 }

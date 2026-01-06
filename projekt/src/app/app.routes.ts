@@ -3,7 +3,6 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { LibraryComponent } from './pages/library/library.component';
 import { authGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AddFilmComponent } from './pages/add-film/add-film.component';
@@ -26,11 +25,6 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: "library",
-        component: LibraryComponent,
-        canActivate: [authGuard]
-    },
-    {
         path: "profile",
         component: ProfileComponent,
         canActivate: [authGuard]
@@ -46,6 +40,15 @@ export const routes: Routes = [
     },
     {
         path: "films/add",
+        component: AddFilmComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: "films/:id",
+        component: FilmsComponent
+    },
+    {
+        path: "films/:id/edit",
         component: AddFilmComponent,
         canActivate: [authGuard]
     },

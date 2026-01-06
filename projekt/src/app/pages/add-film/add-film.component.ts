@@ -5,12 +5,15 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
 import { FilmForm } from '../../interfaces/form.interface';
 import { DatePickerModule } from 'primeng/datepicker';
 import { CollectionService } from '../../services/collection.service';
-import { Collection } from '../../interfaces/film.interface';
+import { Collection, FilmResponse } from '../../interfaces/film.interface';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem, MessageService } from 'primeng/api';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-film',
@@ -21,7 +24,8 @@ import { Collection } from '../../interfaces/film.interface';
     SelectModule, 
     ButtonModule, 
     RouterModule, 
-    DatePickerModule
+    DatePickerModule,
+    BreadcrumbModule
   ],
   templateUrl: './add-film.component.html',
   styleUrl: './add-film.component.scss',
@@ -30,9 +34,16 @@ export class AddFilmComponent implements OnInit{
 
   private filmService = inject(FilmService);
   private collectionService = inject(CollectionService);
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private location = inject(Location);
+  private messageService = inject(MessageService);
+
   protected colFormVisible = false;
   protected collections = signal<Collection[]>([]);
+  protected isEditing = this.location.path().endsWith("edit");
+  protected filmId!: number;
+  protected prevFilm!: FilmResponse;
 
   protected form = new FormGroup<FilmForm>({
     title: new FormControl<string | null>('', [Validators.required, Validators.minLength(1)]),
@@ -46,6 +57,23 @@ export class AddFilmComponent implements OnInit{
     collection: new FormControl<string | null>(null, Validators.required)
   })
 
+  protected addItems: MenuItem[] = [
+    {
+      label: "Films",
+      routerLink: "/films"
+    },
+    {
+      label: "Add film"
+    }
+  ]
+
+  protected editItems!: MenuItem[];
+
+  protected home = {
+    icon: "pi pi-home",
+    routerLink: "/"
+  }
+
   protected get coverUrl(): string {
     const v = this.form.controls.cover.value;
     return typeof v === 'string' && v.trim().length ? v.trim() : '';
@@ -56,9 +84,42 @@ export class AddFilmComponent implements OnInit{
       next: (cols) => this.collections.set(cols),
       error: () => this.router.navigate(["server-error"])
     })
+
+    if (this.isEditing){
+      this.route.params.subscribe(params => {
+        const id = +params['id'];
+        this.filmId = id;
+
+        this.filmService.getFilm(id).subscribe({
+          next: (film) => {
+            this.prevFilm = film;
+            this.form.patchValue({
+              title: film.title,
+              releaseDate: film.releaseDate,
+              length: film.length,
+              cover: film.cover,
+              collectionId: film.collection.id
+            })
+
+            this.editItems = [
+              {
+                label: "Films",
+                routerLink: "/films"
+              },
+              {
+                label: film.title,
+                routerLink: `/films/${film.id}`
+              },
+              { label: "Edit Film" }
+            ]
+          },
+          error: () => this.router.navigate(["not-found"])
+        })
+      })
+    }
   }
 
-  protected add(){
+  protected submit(edit = false){
     if (this.form.invalid) {
       return;
     }
@@ -74,10 +135,42 @@ export class AddFilmComponent implements OnInit{
       collectionId: values.collectionId as number
     }
 
-    this.filmService.addFilm(payload).subscribe({
-      next: (res) => this.router.navigate(['films',res.id]),
-      error: () => this.form.setErrors({ badRequest: true })
-    })
+    if (edit){
+      this.filmService.editFilm(this.filmId, payload).subscribe({
+        next: (res) => {
+          this.router.navigate(['films',res.id]);
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Film has been updated.'});
+        },
+        error: () => {
+          this.form.setErrors({ badRequest: true });
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Failed to update film.'});
+        }
+      })
+    }
+    else{
+      this.filmService.addFilm(payload).subscribe({
+        next: (res) => {
+          this.router.navigate(['films',res.id]);
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Film has been added.'});
+        },
+        error: () => {
+          this.form.setErrors({ badRequest: true });
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Failed to add film.'});
+        }
+      })
+    }
+  }
+
+  protected get canSubmitEdit(){
+    const values = this.form.getRawValue();
+ 
+    return this.form.valid && (
+      values.title !== this.prevFilm.title ||
+      (new Date(values.releaseDate as string).toISOString().split("T")[0]) !== this.prevFilm.releaseDate ||
+      values.length !== this.prevFilm.length ||
+      values.cover !== this.prevFilm.cover ||
+      values.collectionId !== this.prevFilm.collection.id
+    );
   }
 
   protected addCol(){
@@ -101,9 +194,13 @@ export class AddFilmComponent implements OnInit{
         this.form.controls.collectionId.setValue(next.id);
         this.colFormVisible = false;
         this.colForm.reset();
+        this.messageService.add({severity:'success', summary: 'Success', detail: `Collection "${next.name}" has been added.`});
 
       },
-      error: () => {this.colForm.controls.collection.setErrors({exists: true})}
+      error: () => {
+        this.colForm.controls.collection.setErrors({exists: true})
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Collection already exists.'});
+      }
     })
     
   }

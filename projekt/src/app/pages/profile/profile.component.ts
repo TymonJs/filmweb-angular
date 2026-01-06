@@ -7,6 +7,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RegisterForm } from '../../interfaces/form.interface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,8 @@ export class ProfileComponent implements OnInit{
 
   private userService = inject(UserService);
   private router = inject(Router)
+  private messageService = inject(MessageService);
+
   protected user = this.userService.user$.value;
 
   protected form = new FormGroup<RegisterForm>({
@@ -41,7 +44,8 @@ export class ProfileComponent implements OnInit{
 
   logout(){
     this.userService.removeToken();
-    this.router.navigate(["/"])
+    this.router.navigate(["/"]);
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'You have been logged out.'});
   }
 
 
