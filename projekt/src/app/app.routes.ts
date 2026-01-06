@@ -7,6 +7,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AddFilmComponent } from './pages/add-film/add-film.component';
 import { FilmsComponent } from './pages/films/films.component';
+import { ServerErrorComponent } from './pages/server-error/server-error.component';
 
 export const routes: Routes = [
     {
@@ -51,6 +52,10 @@ export const routes: Routes = [
         path: "films/:id/edit",
         component: AddFilmComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: "server-error",
+        component: ServerErrorComponent
     },
     {
         path: "**",

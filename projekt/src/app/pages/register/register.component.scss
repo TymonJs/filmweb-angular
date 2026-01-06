@@ -7,13 +7,14 @@ p-stepper{
     display: flex;
     justify-content: end;
 }
+
 .steps{
-    margin-top: 3rem;
     display: flex;
     justify-content: space-between;
+    margin-top: 3rem;
 }
 
 :host ::ng-deep .p-inputmask input {
-  background-color: rgb(59, 59, 59) !important;
+  background-color: rgb(59 59 59) !important;
   width: 100%;
 }

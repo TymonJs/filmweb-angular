@@ -7,52 +7,57 @@ $text-muted: #9499a1;
 }
 
 .profile-card {
-  width: 100%;
-  max-width: 60rem;
-  margin: 0 auto;
   background: #1d1b1b;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(23, 35, 56, 0.08);
-  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 20px rgb(23 35 56 / 8%);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  margin: 0 auto;
   margin-top: 5rem;
+  max-width: 60rem;
+  padding: 1.25rem 1.5rem;
+  width: 100%;
 }
 
 .profile-header {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  display: flex;
   gap: 1rem;
+  justify-content: space-between;
+
   .left {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 1rem;
   }
 
   .user-meta {
     .username {
-      margin: 0;
+      color: #fff;
       font-size: 1.25rem;
       font-weight: 600;
-      color: #ffffff;
-    }
-    .email {
       margin: 0;
-      font-size: 0.9rem;
-      color: $text-muted;
     }
-    @media (max-width: 380px) {
+
+    .email {
+      color: $text-muted;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    @media (width <= 380px) {
       .username{
         font-size: 1rem;
       }
+
       .email {
         font-size: 0.75rem;
       }
     }
   }
-  @media (max-width: 380px){
+
+  @media (width <= 380px){
     span{
       display: none;
     }
@@ -66,39 +71,46 @@ $text-muted: #9499a1;
 }
 
 .info-card {
+  background-color: rgb(37 37 37);
+  border: 1px solid rgb(15 23 42 / 4%);
+  border-radius: 8px;
   flex: 1;
   padding: 0.9rem 1rem;
-  border-radius: 8px;
-  background-color: rgb(37, 37, 37);
-  border: 1px solid rgba(15, 23, 42, 0.04);
+
   h3 {
-    margin: 0 0 0.5rem;
+    color: #fff;
     font-size: 1rem;
-    color: #ffffff;
+    margin: 0 0 0.5rem;
   }
+
   .info-grid {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
+
   .info-row {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
     .label { 
         color: $text-muted; font-size: 0.9rem; 
     }
+
     input{
-      padding-top: 1.25rem;
       padding-left: .5rem;
+      padding-top: 1.25rem;
     }
-    @media (max-width: 360px){
+
+    @media (width <= 360px){
       input{
         width: 8rem;
       }
     }
-    .value { 
-        font-weight: 600; color: #ffffff; 
+
+    .value { color: #fff; 
+        font-weight: 600; 
     }
   }
 }
@@ -108,7 +120,7 @@ $text-muted: #9499a1;
     justify-content: flex-end;
 }
 
-@media (min-width: 720px) {
+@media (width >= 720px) {
   .profile-body {
     flex-direction: row;
   }

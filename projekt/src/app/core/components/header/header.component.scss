@@ -3,10 +3,11 @@ p-menubar {
     height: 4.5rem;
 
     .row {
+        align-items: center;
         display: flex;
         gap: 1rem;
-        align-items: center;
-        @media (max-width: 400px) {
+
+        @media (width <= 400px) {
             h2{
                 display: none;
             }
@@ -14,14 +15,16 @@ p-menubar {
     }
 
     h1 {
+        color: white;
         font-size: 2rem;
         font-weight: 600;
-        color: white;
+
         &:hover{
             cursor: pointer;
         }
+
         span {
-            color: rgb(88, 201, 175)
+            color: rgb(88 201 175)
         }
 
     }
