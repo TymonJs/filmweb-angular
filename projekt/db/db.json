@@ -9,7 +9,7 @@
         "postal": "11-111"
       },
       "id": 1,
-      "password": "$2a$10$.6lpE0w1vtvaCDbGUoqqx.WC0bnP0Yx/vlembbrg0HvJFoZ8iGeW6"
+      "password": "$2a$10$9PbyJIJI65vJ6Nr4HrAyAOULQoRzOb3.t5MmjRI9pfzl9.eOL121q"
     },
     {
       "email": "widly@gmail.com",
@@ -131,6 +131,10 @@
     {
       "name": "nowa kolekcja",
       "id": 5
+    },
+    {
+      "name": "Fallout",
+      "id": 6
     }
   ]
 }
