@@ -1,5 +1,5 @@
-import { FormControl, FormGroup } from "@angular/forms"
-import { Sort } from "./film.interface"
+import { FormControl, FormGroup } from "@angular/forms";
+import { Sort } from "./film.interface";
 
 export interface Address {
     readonly street: FormControl<string | null>,

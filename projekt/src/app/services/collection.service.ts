@@ -11,11 +11,11 @@ export class CollectionService {
   
   protected httpClient = inject(HttpClient);
 
-  getCollections(): Observable<Collection[]>{
+  public getCollections(): Observable<Collection[]>{
     return this.httpClient.get<Collection[]>(environment.serverUrl + "/collections");
   }
 
-  addCollection(collection: string): Observable<Collection>{
+  public addCollection(collection: string): Observable<Collection>{
     return this.httpClient.post<Collection>(environment.serverUrl + "/collections", {name: collection});
   }
 }

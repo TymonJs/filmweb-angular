@@ -25,7 +25,7 @@ export interface Filter {
     readonly query: string,
     readonly includeUnreleased: boolean,
     readonly collectionId: number
-    readonly sort: Sort
+    readonly sort?: Sort
 }
 
 export type Sort = "A-Z" | "Z-A" | "Latest" | "Oldest" | "Longest" | "Shortest"

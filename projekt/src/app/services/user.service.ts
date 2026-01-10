@@ -14,35 +14,35 @@ export class UserService {
   private ACCESS_TOKEN_KEY = "access_token";
   public user$ = new BehaviorSubject<User|null>(null);
 
-  register(user: Omit<User, "id">): Observable<AuthUser>{
-    return this.httpClient.post<AuthUser>(environment.serverUrl + "/users", user)
+  public register(user: Omit<User, "id">): Observable<AuthUser>{
+    return this.httpClient.post<AuthUser>(environment.serverUrl + "/users", user);
   }
 
-  login(user: LoginDto): Observable<AuthUser>{
-    return this.httpClient.post<AuthUser>(environment.serverUrl + "/login", user)
+  public login(user: LoginDto): Observable<AuthUser>{
+    return this.httpClient.post<AuthUser>(environment.serverUrl + "/login", user);
   }
 
-  getToken(): string | null{
-    return localStorage.getItem(this.ACCESS_TOKEN_KEY)
+  public getToken(): string | null{
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
   }
 
-  saveToken(token: string): void{
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, token)
+  public saveToken(token: string): void{
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, token);
   }
-  saveUser(user: User){
+  public saveUser(user: User): void{
     this.user$.next(user);
   }
 
-  updateUser(user: User): Observable<User>{
-    return this.httpClient.put<User>(environment.serverUrl + `/users/${user.id}`, user)
+  public updateUser(user: User): Observable<User>{
+    return this.httpClient.put<User>(environment.serverUrl + `/users/${user.id}`, user);
   }
 
-  removeToken(): void{
-    localStorage.removeItem(this.ACCESS_TOKEN_KEY)
-    this.user$.next(null)
+  public removeToken(): void{
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    this.user$.next(null);
   }
 
-  verifyToken(): Observable<User | null>{
+  public verifyToken(): Observable<User | null>{
     const token = this.getToken();
 
     if (!token){

@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Film, FilmResponse, Filter } from '../interfaces/film.interface';
 import { environment } from '../../environments/environment.development';
+import { SORT_CONFIG } from '../configs/sort.config';
 
 @Injectable({
   providedIn: 'root',
@@ -10,66 +11,54 @@ import { environment } from '../../environments/environment.development';
 export class FilmService {
   private httpClient = inject(HttpClient);
 
-  getFilms(filter?: Filter): Observable<FilmResponse[]> {
-    if (filter === undefined) return this.httpClient.get<FilmResponse[]>(`${environment.serverUrl}/films`);
-    
-    const { query, collectionId, includeUnreleased, sort } = filter;
+  public getFilms(filter?: Filter): Observable<FilmResponse[]> {
+    const url = `${environment.serverUrl}/films`;
 
-    const today = new Date().toISOString().split('T')[0];
+    if (!filter) {
+      return this.httpClient.get<FilmResponse[]>(url);
+    }
+
+    const { query, collectionId, includeUnreleased, sort } = filter;
     let params = new HttpParams();
 
     if (query) {
-      params = params.set('title_like', query); 
+      params = params.set("title_like", query);
     }
+
     if (collectionId) {
-      params = params.set('collectionId', collectionId);
+      params = params.set("collectionId", collectionId);
     }
+
     if (includeUnreleased === false) {
-      params = params.set('releaseDate_lte', today);
-    }
-    switch (sort){
-      case "A-Z":
-        params = params.set("_sort", "title");
-        break;
-      case "Z-A":
-        params = params.set("_sort", "title");
-        params = params.set("_order", "desc");
-        break;
-      case "Oldest":
-        params = params.set("_sort", "releaseDate");
-        break;
-      case "Latest":
-        params = params.set("_sort", "releaseDate");
-        params = params.set("_order", "desc");
-        break;
-      case "Shortest":
-        params = params.set("_sort", "length");
-        break;
-      case "Longest":
-        params = params.set("_sort", "length");
-        params = params.set("_order", "desc");
-        break;
+      const today = new Date().toISOString().split("T")[0];
+      params = params.set("releaseDate_lte", today);
     }
 
-    return this.httpClient.get<FilmResponse[]>(
-      `${environment.serverUrl}/films`,
-      { params }
-    );
-  }
+    if (sort) {
+      const { sort: sortField, order } = SORT_CONFIG[sort];
+      params = params.set("_sort", sortField);
+      if (order) {
+        params = params.set("_order", order);
+      }
+    }
 
-  getFilm(id: number): Observable<FilmResponse>{
+    return this.httpClient.get<FilmResponse[]>(url, { params });
+}
+
+
+  public getFilm(id: number): Observable<FilmResponse>{
     return this.httpClient.get<FilmResponse>(`${environment.serverUrl}/films/${id}?_expand=collection`);
   }
 
-  addFilm(film: Omit<Film, "id">): Observable<FilmResponse> {
+  public addFilm(film: Omit<Film, "id">): Observable<FilmResponse> {
     return this.httpClient.post<FilmResponse>(`${environment.serverUrl}/films`, film);
   }
 
-  editFilm(id: number, film: Omit<Film, "id">): Observable<FilmResponse>{
+  public editFilm(id: number, film: Omit<Film, "id">): Observable<FilmResponse>{
     return this.httpClient.put<FilmResponse>(`${environment.serverUrl}/films/${id}`, film);
   }
 
-  removeFilm(id: number): Observable<void>{
+  public removeFilm(id: number): Observable<void>{
     return this.httpClient.delete<void>(`${environment.serverUrl}/films/${id}`);
   }
 

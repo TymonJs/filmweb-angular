@@ -19,25 +19,25 @@ export class LoginComponent {
   protected form = new FormGroup<LoginForm>({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.minLength(5)])
-  })
+  });
   private userService = inject(UserService);
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  submit(form: FormGroup<LoginForm>){
+  protected submit(form: FormGroup<LoginForm>): void {
     
     this.userService.login(form.value as LoginDto).subscribe({
       next: (authUser: AuthUser) => {
-        this.userService.saveToken(authUser.accessToken)
+        this.userService.saveToken(authUser.accessToken);
         this.userService.saveUser(authUser.user);
-        this.router.navigate(["/"])
+        this.router.navigate(["/"]);
         this.messageService.add({severity:'success', summary: 'Success', detail: 'You have been logged in.'});
       },
       error: () => {
-        this.form.setErrors({invalidCredentials: true})
+        this.form.setErrors({invalidCredentials: true});
         this.messageService.add({severity:'error', summary: 'Error', detail: 'Invalid email or password.'});
       }
-    })
+    });
     
   }
 

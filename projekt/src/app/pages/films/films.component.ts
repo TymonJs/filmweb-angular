@@ -55,24 +55,24 @@ export class FilmsComponent implements OnInit {
   protected collections = signal<Collection[]>([]);
   protected film = signal<FilmResponse | null>(null);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     
-    this.collectionService.getCollections().subscribe(cols => {
-      this.collections.set(cols)
+    this.collectionService.getCollections().subscribe((cols) => {
+      this.collections.set(cols);
       const params = this.route.snapshot.queryParams;
 
       this.form.patchValue({
-        query: params['query'] ?? '',
+        query: (params['query'] ?? '') as string,
         includeUnreleased: params['includeUnreleased'] === 'false' ? false : true,
         collectionId: params['collectionId'] ? +params['collectionId'] : null,
-        sort: params["sort"] ?? null
+        sort: params["sort"] as Sort
       });
 
     });
 
     this.form.controls.query.valueChanges
       .pipe(debounceTime(300))
-      .subscribe(query => {
+      .subscribe((query) => {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { query: query && query.length ? query : null },
@@ -88,7 +88,7 @@ export class FilmsComponent implements OnInit {
           prev.sort === curr.sort
         )
       )
-      .subscribe(next => {
+      .subscribe((next) => {
         const { includeUnreleased, collectionId, sort } = next;
         const params: Partial<Filter> = {
           collectionId: collectionId ?? undefined,
@@ -104,17 +104,17 @@ export class FilmsComponent implements OnInit {
 
     this.route.queryParams
       .pipe(
-        map(params => ({
-          query: params['query'],
-          collectionId: params['collectionId'],
+        map((params) => ({
+          query: params['query'] as string,
+          collectionId: params['collectionId'] as number,
           includeUnreleased: params['includeUnreleased'] === 'false' ? false : true,
-          sort: params["sort"]
+          sort: params["sort"] as Sort
         })),
-        switchMap(filter => this.filmService.getFilms(filter))
+        switchMap((filter) => this.filmService.getFilms(filter))
       )
-      .subscribe(films => this.films.set(films));
+      .subscribe((films) => this.films.set(films));
 
-      this.route.params.subscribe(params => {
+      this.route.params.subscribe((params) => {
           const id = +params["id"];
           
           if (id && id > 0){
@@ -122,10 +122,12 @@ export class FilmsComponent implements OnInit {
               next: (res) => {
                 this.film.set(res);
               },
-              error: () => this.router.navigate(["server-error"])
-            })
+              error: (_) => {
+                this.router.navigate(["server-error"]);
+              }
+            });
           }
-        })
+        });
   }
 
 
@@ -139,17 +141,17 @@ export class FilmsComponent implements OnInit {
   //     || values.sort!==null;
   // }
 
-  goToDetails(id: number) {
+  protected goToDetails(id: number): void {
     this.router.navigate(["films",id], {
       queryParamsHandling: 'merge'
     });
   }
 
-  protected add() {
+  protected add(): void {
     this.router.navigate(['films', 'add']);
   }
 
-  protected remove(){
+  protected remove(): void{
     this.filmService.removeFilm(this.film()?.id as number).subscribe({
       next: () => {
         this.router.navigate(['films']);
@@ -162,8 +164,8 @@ export class FilmsComponent implements OnInit {
     });
   }
 
-  protected edit(){
-    this.router.navigate(['films', this.film()?.id, 'edit'])
+  protected edit(): void{
+    this.router.navigate(['films', this.film()?.id, 'edit']);
     
   }
 }

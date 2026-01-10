@@ -51,11 +51,11 @@ export class AddFilmComponent implements OnInit{
     length: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
     cover: new FormControl<string | null>('', [Validators.required]),
     collectionId: new FormControl<number | null>(null, [Validators.required])
-  })
+  });
 
   protected colForm = new FormGroup<{collection: FormControl<string | null>}>({
     collection: new FormControl<string | null>(null, Validators.required)
-  })
+  });
 
   protected addItems: MenuItem[] = [
     {
@@ -65,28 +65,31 @@ export class AddFilmComponent implements OnInit{
     {
       label: "Add film"
     }
-  ]
+  ];
 
   protected editItems!: MenuItem[];
 
   protected home = {
     icon: "pi pi-home",
     routerLink: "/"
-  }
+  };
 
   protected get coverUrl(): string {
     const v = this.form.controls.cover.value;
+
     return typeof v === 'string' && v.trim().length ? v.trim() : '';
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.collectionService.getCollections().subscribe({
       next: (cols) => this.collections.set(cols),
-      error: () => this.router.navigate(["server-error"])
-    })
+      error: (_) => {
+        this.router.navigate(["server-error"]);
+      }
+    });
 
     if (this.isEditing){
-      this.route.params.subscribe(params => {
+      this.route.params.subscribe((params) => {
         const id = +params['id'];
         this.filmId = id;
 
@@ -99,7 +102,7 @@ export class AddFilmComponent implements OnInit{
               length: film.length,
               cover: film.cover,
               collectionId: film.collection.id
-            })
+            });
 
             this.editItems = [
               {
@@ -111,15 +114,17 @@ export class AddFilmComponent implements OnInit{
                 routerLink: `/films/${film.id}`
               },
               { label: "Edit Film" }
-            ]
+            ];
           },
-          error: () => this.router.navigate(["not-found"])
-        })
-      })
+          error: (_) => {
+            this.router.navigate(["not-found"]);
+          }
+        });
+      });
     }
   }
 
-  protected submit(edit = false){
+  protected submit(edit: boolean = false): void{
     if (this.form.invalid) {
       return;
     }
@@ -133,7 +138,7 @@ export class AddFilmComponent implements OnInit{
       length: values.length as number,
       cover: values.cover as string,
       collectionId: values.collectionId as number
-    }
+    };
 
     if (edit){
       this.filmService.editFilm(this.filmId, payload).subscribe({
@@ -145,7 +150,7 @@ export class AddFilmComponent implements OnInit{
           this.form.setErrors({ badRequest: true });
           this.messageService.add({severity:'error', summary: 'Error', detail: 'Failed to update film.'});
         }
-      })
+      });
     }
     else{
       this.filmService.addFilm(payload).subscribe({
@@ -157,11 +162,11 @@ export class AddFilmComponent implements OnInit{
           this.form.setErrors({ badRequest: true });
           this.messageService.add({severity:'error', summary: 'Error', detail: 'Failed to add film.'});
         }
-      })
+      });
     }
   }
 
-  protected get canSubmitEdit(){
+  protected get canSubmitEdit(): boolean{
     const values = this.form.getRawValue();
  
     return this.form.valid && (
@@ -173,20 +178,22 @@ export class AddFilmComponent implements OnInit{
     );
   }
 
-  protected addCol(){
+  protected addCol(): void{
     const collection = this.colForm.controls.collection.value;
 
     if (collection == null || collection === ""){
       this.colForm.controls.collection.setErrors({required: true});
-      return;
+      
+return;
     }
     const cols = this.collections();
 
-    const collectionFormatted = collection.trim()
+    const collectionFormatted = collection.trim();
     
-    if (cols.find(c => c.name.trim().toLowerCase() === collectionFormatted.toLowerCase())){
+    if (cols.find((c) => c.name.trim().toLowerCase() === collectionFormatted.toLowerCase())){
       this.colForm.controls.collection.setErrors({exists: true});
-      return;
+      
+return;
     }
     this.collectionService.addCollection(collectionFormatted).subscribe({
       next: (next) => {
@@ -198,10 +205,10 @@ export class AddFilmComponent implements OnInit{
 
       },
       error: () => {
-        this.colForm.controls.collection.setErrors({exists: true})
+        this.colForm.controls.collection.setErrors({exists: true});
         this.messageService.add({severity:'error', summary: 'Error', detail: 'Collection already exists.'});
       }
-    })
+    });
     
   }
 

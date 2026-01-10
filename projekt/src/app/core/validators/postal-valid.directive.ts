@@ -5,16 +5,17 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   selector: '[appPostalValid]',
   providers: [{
     provide: NG_VALIDATORS,
-    useExisting: PostalValid,
+    useExisting: PostalValidator,
     multi: true
   }]
 })
-export class PostalValid implements Validator{
+export class PostalValidator implements Validator{
 
-  validate(control: AbstractControl): ValidationErrors | null {
+  public validate(control: AbstractControl): ValidationErrors | null {
     if (control.value){
-      const valid = new RegExp("^[0-9]{2}-[0-9]{3}$").test(control.value)
-      return valid? null: {postalInvalid: true}
+      const valid = new RegExp("^[0-9]{2}-[0-9]{3}$").test(control.value as string);
+      
+return valid? null: {postalInvalid: true};
     }
 
     return null;

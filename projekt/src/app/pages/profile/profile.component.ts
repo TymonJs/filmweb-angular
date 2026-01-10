@@ -18,7 +18,7 @@ import { MessageService } from 'primeng/api';
 export class ProfileComponent implements OnInit{
 
   private userService = inject(UserService);
-  private router = inject(Router)
+  private router = inject(Router);
   private messageService = inject(MessageService);
 
   protected user = this.userService.user$.value;
@@ -32,17 +32,17 @@ export class ProfileComponent implements OnInit{
       city: new FormControl("", [Validators.required]),
       postal: new FormControl("", [Validators.required])
     })
-  })
+  });
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.form.patchValue(this.user as User);
   }
 
-  protected edit(){
-    this.router.navigate(["profile", "edit"])
+  protected edit(): void{
+    this.router.navigate(["profile", "edit"]);
   }
 
-  logout(){
+  protected logout(): void{
     this.userService.removeToken();
     this.router.navigate(["/"]);
     this.messageService.add({severity:'success', summary: 'Success', detail: 'You have been logged out.'});

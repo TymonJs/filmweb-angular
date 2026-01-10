@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
 export class PageNotFoundComponent {
   private location = inject(Location);
 
-  goBack(){
+  protected goBack(): void{
     this.location.back();
   }
 }

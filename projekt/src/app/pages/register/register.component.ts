@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthUser, User } from '../../interfaces/user.interface';
-import { PostalValid } from '../../core/validators/postal-valid.directive';
+import { PostalValidator } from '../../core/validators/postal-valid.directive';
 import { InputMaskModule } from 'primeng/inputmask';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ButtonModule } from "primeng/button";
@@ -19,7 +19,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
   imports: [ReactiveFormsModule, 
     InputMaskModule, 
     IftaLabelModule, 
-    PostalValid, 
+    PostalValidator, 
     ButtonModule, 
     StepperModule,
     RouterModule,
@@ -39,13 +39,13 @@ export class RegisterComponent implements OnInit{
       city: new FormControl("", [Validators.required]),
       postal: new FormControl("", [Validators.required])
     })
-  })
+  });
 
   private userService = inject(UserService);
   private router = inject(Router);
   private location = inject(Location);
   private messageService = inject(MessageService);
-  protected isEditing = this.location.path() === "/profile/edit"
+  protected isEditing = this.location.path() === "/profile/edit";
   protected modalVisible = false;
 
   protected items: MenuItem[] = [
@@ -56,49 +56,51 @@ export class RegisterComponent implements OnInit{
     {
       label: "Update profile"
     }
-  ]
+  ];
 
   protected home = {
     icon: "pi pi-home",
     routerLink: "/"
-  }
+  };
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     
     const user = {...this.userService.user$.value, password: ""};
-    if (this.isEditing && user){
+    if (this.isEditing){
       this.form.patchValue(user);
       this.form.controls.password.clearValidators();
-      this.form.controls.password.updateValueAndValidity()    
+      this.form.controls.password.updateValueAndValidity();    
     }
   }
 
-  protected get isFirstStepInvalid(){
+  protected get isFirstStepInvalid(): boolean {
     const isInvalid = this.form.controls.username.invalid || this.form.controls.email.invalid;
     if (this.isEditing) return isInvalid;
+    
     return isInvalid || this.form.controls.password.invalid;
   }
 
-  protected get isSecondStepInvalid(){
-    return this.form.controls.address.invalid || this.form.controls.password.invalid || this.form.controls.email.invalid
+  protected get isSecondStepInvalid(): boolean {
+    return this.form.controls.address.invalid || this.form.controls.password.invalid || this.form.controls.email.invalid;
   }
 
-  protected get userUnchanged(){
+  protected get userUnchanged(): boolean{
     const user = this.userService.user$.value;
     const given = this.form.getRawValue();
 
     return user?.username === given.username &&
-      user?.email === given.email && 
+      user.email === given.email && 
       JSON.stringify(user.address) === JSON.stringify(given.address);
   }
 
-  updateUser(){
+  protected updateUser(): void{
     const formValues = this.form.getRawValue();
     const password = formValues.password;
 
     if (password === null){
       this.closeModal();
       this.form.controls.password.setErrors({badRequest: true});
+      
       return;
     }
 
@@ -115,9 +117,10 @@ export class RegisterComponent implements OnInit{
     if (!currentUser){
       this.form.controls.password.patchValue("");
       this.form.controls.password.setErrors({badRequest: true});
+      
       return;
     }
-    const email = currentUser.email as string;
+    const email = currentUser.email;
 
     this.userService.login({ email, password })
     .subscribe({
@@ -127,31 +130,31 @@ export class RegisterComponent implements OnInit{
           this.router.navigate(["profile"]);
           this.messageService.add({severity:'success', summary: 'Success', detail: 'Your profile has been updated.'});
           
-        })
+        });
       },
       error: () => {
         this.form.controls.password.patchValue("");
         this.form.controls.password.setErrors({badRequest: true});
         this.messageService.add({severity:'error', summary: 'Error', detail: 'Incorrect password. Please try again.'});
       }
-    })
+    });
 
   }
 
-  showModal(){
+  protected showModal(): void{
     this.form.controls.password.addValidators([Validators.required]);
     this.form.controls.password.updateValueAndValidity();
     this.modalVisible = true;
   }
 
-  closeModal(){
+  protected closeModal(): void{
     this.modalVisible = false;
     this.form.controls.password.patchValue("");
     this.form.controls.password.clearValidators();
     this.form.controls.password.updateValueAndValidity();
   }
 
-  register(){
+  protected register(): void{
     const form: FormGroup<RegisterForm> = this.form;
     this.userService.register(form.value as Omit<User, "id">).subscribe({
       next: (res: AuthUser) => {

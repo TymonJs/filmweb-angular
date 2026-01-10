@@ -28,11 +28,11 @@ export class HeaderComponent implements OnInit{
   private router = inject(Router);
   protected user$ = this.userService.user$;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.userService.verifyToken().subscribe({
       next: (res) => this.userService.user$.next(res),
       error: () => this.userService.removeToken()
-    })
+    });
   }
 
 }

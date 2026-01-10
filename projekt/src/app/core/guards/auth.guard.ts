@@ -11,17 +11,20 @@ export const authGuard: CanActivateFn = (route, state) => {
   const isAuthRoute = authRoutes.includes(state.url);
   
   return userService.verifyToken().pipe(
-    map(user => {
+    map((user) => {
       if (user) {
-        if (isAuthRoute) return router.createUrlTree(["/"])
+        if (isAuthRoute) return router.createUrlTree(["/"]);
+        
         return true;
-      } else {
-        if (isAuthRoute) return true
+      } 
+        if (isAuthRoute) return true;
+        
         return router.createUrlTree(['login']); 
-      }
+      
     }),
     catchError(() => {
       userService.removeToken();
+      
       return of(isAuthRoute? true: router.createUrlTree(['login']));
     })
   );
