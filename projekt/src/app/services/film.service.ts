@@ -1,9 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Film, FilmResponse, Filter } from '../interfaces/film.interface';
 import { environment } from '../../environments/environment.development';
-import { SORT_CONFIG } from '../configs/sort.config';
+import { SORT_MAP } from '../configs/sort.map';
 
 @Injectable({
   providedIn: 'root',
@@ -14,37 +14,36 @@ export class FilmService {
   public getFilms(filter?: Filter): Observable<FilmResponse[]> {
     const url = `${environment.serverUrl}/films`;
 
-    if (!filter) {
-      return this.httpClient.get<FilmResponse[]>(url);
-    }
+    return this.httpClient.get<FilmResponse[]>(url).pipe(
+      map((films) => filter ? this.applyFilter(films, filter) : films)
+    );
+  }
 
-    const { query, collectionId, includeUnreleased, sort } = filter;
-    let params = new HttpParams();
+  private applyFilter(films: FilmResponse[],filter: Filter): FilmResponse[] {
+    return films
+      .filter((film) => this.matchesQuery(film, filter.query))
+      .filter((film) => this.matchesCollection(film, filter.collectionId))
+      .filter((film) => this.matchesRelease(film, filter.includeUnreleased))
+      .sort((a, b) => {
+        if (!filter.sort) return 0;
+        
+        return SORT_MAP.get(filter.sort)?.(a, b) ?? 0;
+    });
+  }
 
-    if (query) {
-      params = params.set("title_like", query);
-    }
+  private matchesQuery(film: FilmResponse, query?: string): boolean {
+    return !query || film.title.toLowerCase().includes(query.toLowerCase());
+  }
 
-    if (collectionId) {
-      params = params.set("collectionId", collectionId);
-    }
+  private matchesCollection(film: FilmResponse, collectionId?: number): boolean {
+    return !collectionId || film.collection.id === collectionId;
+  }
 
-    if (includeUnreleased === false) {
-      const today = new Date().toISOString().split("T")[0];
-      params = params.set("releaseDate_lte", today);
-    }
+  private matchesRelease(film: FilmResponse, includeUnreleased?: boolean): boolean {
+    if (includeUnreleased !== false) return true;
 
-    if (sort) {
-      const { sort: sortField, order } = SORT_CONFIG[sort];
-      params = params.set("_sort", sortField);
-      if (order) {
-        params = params.set("_order", order);
-      }
-    }
-
-    return this.httpClient.get<FilmResponse[]>(url, { params });
-}
-
+    return film.releaseDate <= new Date().toISOString().split("T")[0];
+  }
 
   public getFilm(id: number): Observable<FilmResponse>{
     return this.httpClient.get<FilmResponse>(`${environment.serverUrl}/films/${id}?_expand=collection`);
