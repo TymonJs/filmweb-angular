@@ -8,7 +8,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FilmFilter } from '../../interfaces/form.interface';
 import { SelectModule } from 'primeng/select';
-import { Filter, Collection, FilmResponse, Sort, Film } from '../../interfaces/film.interface';
+import { Filter, Collection, FilmExpanded, Sort, Film } from '../../interfaces/film.interface';
 import { map, switchMap, distinctUntilChanged, debounceTime } from 'rxjs';
 import { CollectionService } from '../../services/collection.service';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -53,7 +53,7 @@ export class FilmsComponent implements OnInit {
 
   protected films = signal<Film[]>([]);
   protected collections = signal<Collection[]>([]);
-  protected film = signal<FilmResponse | null>(null);
+  protected film = signal<FilmExpanded | null>(null);
 
   public ngOnInit(): void {
     

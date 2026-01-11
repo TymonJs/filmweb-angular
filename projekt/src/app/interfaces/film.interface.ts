@@ -1,4 +1,4 @@
-export interface FilmResponse {
+export interface FilmExpanded {
     readonly id: number,
     readonly title: string,
     readonly releaseDate: string,

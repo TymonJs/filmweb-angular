@@ -10,7 +10,7 @@ import { SelectModule } from 'primeng/select';
 import { FilmForm } from '../../interfaces/form.interface';
 import { DatePickerModule } from 'primeng/datepicker';
 import { CollectionService } from '../../services/collection.service';
-import { Collection, FilmResponse } from '../../interfaces/film.interface';
+import { Collection, FilmExpanded } from '../../interfaces/film.interface';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
@@ -43,7 +43,7 @@ export class AddFilmComponent implements OnInit{
   protected collections = signal<Collection[]>([]);
   protected isEditing = this.location.path().endsWith("edit");
   protected filmId!: number;
-  protected prevFilm!: FilmResponse;
+  protected prevFilm!: FilmExpanded;
 
   protected form = new FormGroup<FilmForm>({
     title: new FormControl<string | null>('', [Validators.required, Validators.minLength(1)]),
