@@ -1,6 +1,6 @@
-import { FilmResponse, Sort } from "../interfaces/film.interface";
+import { Film, Sort } from "../interfaces/film.interface";
 
-export const SORT_MAP = new Map<Sort, (a: FilmResponse, b: FilmResponse) => number>([
+export const SORT_MAP = new Map<Sort, (a: Film, b: Film) => number>([
   ["A-Z", (a, b) => a.title.localeCompare(b.title)],
   ["Z-A", (a, b) => b.title.localeCompare(a.title)],
   ["Oldest", (a, b) => a.releaseDate.localeCompare(b.releaseDate)],

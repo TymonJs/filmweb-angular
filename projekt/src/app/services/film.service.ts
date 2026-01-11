@@ -11,15 +11,17 @@ import { SORT_MAP } from '../configs/sort.map';
 export class FilmService {
   private httpClient = inject(HttpClient);
 
-  public getFilms(filter?: Filter): Observable<FilmResponse[]> {
+  public getFilms(filter?: Filter): Observable<Film[]> {
     const url = `${environment.serverUrl}/films`;
 
-    return this.httpClient.get<FilmResponse[]>(url).pipe(
+    return this.httpClient.get<Film[]>(url).pipe(
       map((films) => filter ? this.applyFilter(films, filter) : films)
     );
   }
 
-  private applyFilter(films: FilmResponse[],filter: Filter): FilmResponse[] {
+  private applyFilter(films: Film[], filter: Filter): Film[] {
+    console.log("filter", filter);
+    
     return films
       .filter((film) => this.matchesQuery(film, filter.query))
       .filter((film) => this.matchesCollection(film, filter.collectionId))
@@ -31,15 +33,15 @@ export class FilmService {
     });
   }
 
-  private matchesQuery(film: FilmResponse, query?: string): boolean {
+  private matchesQuery(film: Film, query?: string): boolean {
     return !query || film.title.toLowerCase().includes(query.toLowerCase());
   }
 
-  private matchesCollection(film: FilmResponse, collectionId?: number): boolean {
-    return !collectionId || film.collection.id === collectionId;
+  private matchesCollection(film: Film, collectionId?: number): boolean {
+    return !collectionId || film.collectionId === collectionId;
   }
 
-  private matchesRelease(film: FilmResponse, includeUnreleased?: boolean): boolean {
+  private matchesRelease(film: Film, includeUnreleased?: boolean): boolean {
     if (includeUnreleased !== false) return true;
 
     return film.releaseDate <= new Date().toISOString().split("T")[0];

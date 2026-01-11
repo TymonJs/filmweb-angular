@@ -8,7 +8,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FilmFilter } from '../../interfaces/form.interface';
 import { SelectModule } from 'primeng/select';
-import { Filter, Collection, FilmResponse, Sort } from '../../interfaces/film.interface';
+import { Filter, Collection, FilmResponse, Sort, Film } from '../../interfaces/film.interface';
 import { map, switchMap, distinctUntilChanged, debounceTime } from 'rxjs';
 import { CollectionService } from '../../services/collection.service';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -51,7 +51,7 @@ export class FilmsComponent implements OnInit {
   protected route = inject(ActivatedRoute);
   private messageService = inject(MessageService);
 
-  protected films = signal<FilmResponse[]>([]);
+  protected films = signal<Film[]>([]);
   protected collections = signal<Collection[]>([]);
   protected film = signal<FilmResponse | null>(null);
 
@@ -106,7 +106,7 @@ export class FilmsComponent implements OnInit {
       .pipe(
         map((params) => ({
           query: params['query'] as string,
-          collectionId: params['collectionId'] as number,
+          collectionId: +params['collectionId'],
           includeUnreleased: params['includeUnreleased'] === 'false' ? false : true,
           sort: params["sort"] as Sort
         })),
@@ -129,17 +129,6 @@ export class FilmsComponent implements OnInit {
           }
         });
   }
-
-
-  // get showFilms(){
-  //   const values = this.form.value;
-  //   return this.form.dirty || 
-  //     this.form.touched || 
-  //     values.query!=="" || 
-  //     values.collectionId !== null || 
-  //     values.includeUnreleased===false
-  //     || values.sort!==null;
-  // }
 
   protected goToDetails(id: number): void {
     this.router.navigate(["films",id], {
