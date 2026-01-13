@@ -184,7 +184,7 @@ export class AddFilmComponent implements OnInit{
     if (collection == null || collection === ""){
       this.colForm.controls.collection.setErrors({required: true});
       
-return;
+      return;
     }
     const cols = this.collections();
 
@@ -193,7 +193,7 @@ return;
     if (cols.find((c) => c.name.trim().toLowerCase() === collectionFormatted.toLowerCase())){
       this.colForm.controls.collection.setErrors({exists: true});
       
-return;
+      return;
     }
     this.collectionService.addCollection(collectionFormatted).subscribe({
       next: (next) => {

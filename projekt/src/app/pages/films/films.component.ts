@@ -157,4 +157,14 @@ export class FilmsComponent implements OnInit {
     this.router.navigate(['films', this.film()?.id, 'edit']);
     
   }
+
+  protected get isFilmSelected(): boolean {
+    return this.film() !== null;
+  }
+
+  protected goToFilms(): void {
+    this.router.navigate(['films'], {
+      queryParamsHandling: 'merge'
+    });
+  }
 }

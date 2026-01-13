@@ -20,7 +20,6 @@ export class FilmService {
   }
 
   private applyFilter(films: Film[], filter: Filter): Film[] {
-    console.log("filter", filter);
     
     return films
       .filter((film) => this.matchesQuery(film, filter.query))

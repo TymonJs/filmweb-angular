@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" [class.film-selected]="isFilmSelected">
     <div class="sidebar">
         <p-accordion [value]="['0','1']" [multiple]="true"> 
             <!-- [value]="showFilms?['0','1']:['0']" -->
@@ -72,53 +72,54 @@
         
     </div>
     <div class="details">
-    @if (!film()) {
-        <div class="empty-state">
-            <div class="icon-circle">
-                <i class="pi pi-compass"></i>
-            </div>
-            <h1>Select a Film</h1>
-            <p>Browse the sidebar to explore film details.</p>
-        </div>
-    } @else {
-        <div class="film-card">
-            <div class="cover">
-                <p-image
-                [src]="film()?.cover"
-                alt="cover image"
-                [preview]="true"
-                loading="eager"
-                />
-            </div>
-
-            <div class="info">
-                <h2 class="title">{{ film()?.title }}</h2>
-
-                <div class="meta">
-                <span>
-                    <i class="pi pi-folder"></i>
-                    {{ film()?.collection?.name }}
-                </span>
-
-                <span>
-                    <i class="pi pi-calendar"></i>
-                    {{ film()?.releaseDate }}
-                </span>
-
-                <span>
-                    <i class="pi pi-clock"></i>
-                    {{ film()?.length }} min
-                </span>
+        <p-button icon="pi pi-arrow-left" label="back to films" severity="secondary" class="back-button" (onClick)="goToFilms()"></p-button>
+        @if (!film()) {
+            <div class="empty-state">
+                <div class="icon-circle">
+                    <i class="pi pi-compass"></i>
                 </div>
-                <div class="buttons">
-                    <p-button label="Edit" icon="pi pi-pencil" [raised]="true" (click)="edit()"></p-button>
-                    <p-button label="Remove" icon="pi pi-trash" severity="danger" [raised]="true" (click)="remove()"></p-button>
+                <h1>Select a Film</h1>
+                <p>Browse the sidebar to explore film details.</p>
+            </div>
+        } @else {
+            <div class="film-card">
+                <div class="cover">
+                    <p-image
+                    [src]="film()?.cover"
+                    alt="cover image"
+                    [preview]="true"
+                    loading="eager"
+                    />
                 </div>
+
+                <div class="info">
+                    <h2 class="title">{{ film()?.title }}</h2>
+
+                    <div class="meta">
+                    <span>
+                        <i class="pi pi-folder"></i>
+                        {{ film()?.collection?.name }}
+                    </span>
+
+                    <span>
+                        <i class="pi pi-calendar"></i>
+                        {{ film()?.releaseDate }}
+                    </span>
+
+                    <span>
+                        <i class="pi pi-clock"></i>
+                        {{ film()?.length }} min
+                    </span>
+                    </div>
+                    <div class="buttons">
+                        <p-button label="Edit" icon="pi pi-pencil" [raised]="true" (click)="edit()"></p-button>
+                        <p-button label="Remove" icon="pi pi-trash" severity="danger" [raised]="true" (click)="remove()"></p-button>
+                    </div>
+                </div>
+
             </div>
 
-        </div>
-
-    }
-</div>
+        }
+    </div>
 
 </div>

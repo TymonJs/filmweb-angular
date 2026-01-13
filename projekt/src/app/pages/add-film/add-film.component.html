@@ -91,12 +91,13 @@
                   <input pInputText type="text" id="collection" formControlName="collection"/>
                   <label for="collection">Collection name</label>
               </p-iftalabel>
-              <p-button text icon="pi pi-plus" (onClick)="addCol()" rounded="true" [disabled]="colForm.invalid"></p-button>
+              <p-button text icon="pi pi-times" (onClick)="colFormVisible = false; colForm.reset()" rounded="true" size="small"></p-button>
+              <p-button icon="pi pi-plus" (onClick)="addCol(); collectionSelect.setDisabledState(true)" rounded="true" [disabled]="colForm.invalid" size="small"></p-button>
           </div>
   
           @if (colForm.controls.collection.touched){
             @if (colForm.controls.collection.errors?.["required"]){
-              <div class="error"><small>Add collection name to create a collection</small></div>
+              <div class="error"><small>Set the name of the collection</small></div>
             }
             @else if (colForm.controls.collection.errors?.["exists"]) {
               <div class="error"><small>Collection already exists</small></div>

@@ -1,5 +1,4 @@
 .form-card{
-//   background: linear-gradient(180deg, rgba(40,40,40,0.7), rgba(30,30,30,0.9));
   background-color: rgb(30 30 30 / 90%);
   border-radius: 8px;
   box-shadow: 0 6px 18px rgb(0 0 0 / 45%);
@@ -101,9 +100,24 @@
   }
 }
 
+
+
 .col-form{
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
+}
+
+@media (width <= 720px){
+    .form-card{
+      margin: 0 2rem 1rem;
+    }
+
+    .right{
+      .preview{
+        margin: auto;
+        width: 75%;
+      }
+    }
 }
 
 
@@ -177,4 +191,10 @@
             }
         }
     }
+}
+
+@media (width <= 830px){
+  .collection{
+    flex-direction: column;
+  }
 }
