@@ -1,7 +1,7 @@
 @if (isEditing){
     <p-breadcrumb [home]="home" [model]="items" [style]="{'background-color': 'inherit'}"/>
 }
-<form [formGroup]="form">
+<form [formGroup]="form" [class.editing]="isEditing">
     @if (isEditing) {
         <h1>Update account</h1>
     }
@@ -130,6 +130,10 @@
         </p-step-panels>
     </p-stepper>
 
+    
+    @if(!isEditing){
+        <p>Already have an account? <a routerLink="/login">Log in</a></p>
+    }
     <p-dialog [modal]="true" [(visible)]="modalVisible" (onHide)="form.controls.password.patchValue('')">
         <ng-template #header>
             <h3>Update profile</h3>
@@ -154,9 +158,5 @@
             <p-button label="Save" (click)="updateUser()" [disabled]="form.controls.password.invalid"/>
         </ng-template>
     </p-dialog>
-
-     @if(!isEditing){
-         <p>Already have an account? <a routerLink="/login">Log in</a></p>
-     }
     
 </form>

@@ -14,7 +14,17 @@ p-stepper{
     margin-top: 3rem;
 }
 
+form{
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.editing{
+    margin-top: 1.5rem;
+}
+
 :host ::ng-deep .p-inputmask input {
-  background-color: rgb(59 59 59) !important;
+  background-color: rgb(43 47 51);
+  border-color: rgb(133 133 133);
   width: 100%;
 }
