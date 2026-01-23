@@ -1,125 +1,133 @@
 <div class="content" [class.film-selected]="isFilmSelected">
-    <div class="sidebar">
-        <p-accordion [value]="['0','1']" [multiple]="true"> 
-            <!-- [value]="showFilms?['0','1']:['0']" -->
-            <p-accordion-panel value="0">
-                <p-accordion-header>
-                    <div class="row">
-                        <h2>Search</h2>
-                        <i class="pi pi-search"></i>
-                    </div>
-                </p-accordion-header>
-                <p-accordion-content>
-                    <div class="actions" [formGroup]="form">
-                        <input type="text" placeholder="Title" formControlName="query">
-                        <div class="is-released">
-                            <p-checkbox binary="true" formControlName="includeUnreleased"></p-checkbox>
-                            <label for="includeUnreleased">Include unreleased</label>
-                        </div>
-                        <p-select [options]="collections()" 
-                            optionLabel="name" 
-                            optionValue="id" 
-                            placeholder="Collection" 
-                            [checkmark]="true" 
-                            [showClear]="true" 
-                            [style]="{'background-color': 'rgb(59, 59, 59)'}"
-                            [filter]="true"
-                            filterBy="name"
-                            formControlName="collectionId"
-                            variant="filled"
-                            >
-                        </p-select>
-
-                        <p-select [options]="['A-Z', 'Z-A', 'Latest', 'Oldest', 'Longest', 'Shortest']" 
-                        placeholder="Sort" 
-                        [checkmark]="true" 
-                        [showClear]="true" 
-                        [style]="{'background-color': 'rgb(59, 59, 59)'}"
-                        formControlName="sort"
-                        variant="filled"
-                        >
-                    </p-select>
-                        
-                    </div>
-                    
-                    
-                </p-accordion-content>
-            </p-accordion-panel>
-            <p-accordion-panel value="1">
-                <p-accordion-header>
-                    <div class="row">
-                        <h2>Films</h2>
-                        <button pButton rounded="true" size="small" (click)="add()">
-                            <i class="pi pi-plus"></i>
-                            <p pButtonLabel class="hide">Add</p>
-                        </button>
-                        <!-- <p-button size="small" label="Add" (click)="add()" rounded="true" icon="pi pi-plus"/> -->
-                    </div>
-                </p-accordion-header>
-                <p-accordion-content>
-                    <p-virtualscroller [items]="films()" [itemSize]="50" scrollHeight="400px" class="films" [delay]="150">
-                        <ng-template pTemplate="item" #item let-item let-options="options">
-                            <div class="film">
-                                <button  (click)="goToDetails(item.id)">
-                                    <p>{{item.title}}</p>
-                                </button>
-                            </div>
-                        </ng-template>
-                    </p-virtualscroller>
-                </p-accordion-content>
-            </p-accordion-panel>
-        </p-accordion>
-        
-    </div>
-    <div class="details">
-        <p-button icon="pi pi-arrow-left" label="back to films" severity="secondary" class="back-button" (onClick)="goToFilms()"></p-button>
-        @if (!film()) {
-            <div class="empty-state">
-                <div class="icon-circle">
-                    <i class="pi pi-compass"></i>
-                </div>
-                <h1>Select a Film</h1>
-                <p>Browse the sidebar to explore film details.</p>
+  <div class="sidebar">
+    <p-accordion [value]="['0', '1']" [multiple]="true">
+      <!-- [value]="showFilms?['0','1']:['0']" -->
+      <p-accordion-panel value="0">
+        <p-accordion-header>
+          <div class="row">
+            <h2>Search</h2>
+            <i class="pi pi-search"></i>
+          </div>
+        </p-accordion-header>
+        <p-accordion-content>
+          <div class="actions" [formGroup]="form">
+            <input type="text" placeholder="Title" formControlName="query" />
+            <div class="is-released">
+              <p-checkbox binary="true" formControlName="includeUnreleased"></p-checkbox>
+              <label for="includeUnreleased">Include unreleased</label>
             </div>
-        } @else {
-            <div class="film-card">
-                <div class="cover">
-                    <p-image
-                    [src]="film()?.cover"
-                    alt="cover image"
-                    [preview]="true"
-                    loading="eager"
-                    />
-                </div>
+            <p-select
+              [options]="collections()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Collection"
+              [checkmark]="true"
+              [showClear]="true"
+              [style]="{ 'background-color': 'rgb(59, 59, 59)' }"
+              [filter]="true"
+              filterBy="name"
+              formControlName="collectionId"
+              variant="filled"
+            >
+            </p-select>
 
-                <div class="info">
-                    <h2 class="title">{{ film()?.title }}</h2>
+            <p-select
+              [options]="['A-Z', 'Z-A', 'Latest', 'Oldest', 'Longest', 'Shortest']"
+              placeholder="Sort"
+              [checkmark]="true"
+              [showClear]="true"
+              [style]="{ 'background-color': 'rgb(59, 59, 59)' }"
+              formControlName="sort"
+              variant="filled"
+            >
+            </p-select>
+          </div>
+        </p-accordion-content>
+      </p-accordion-panel>
+      <p-accordion-panel value="1">
+        <p-accordion-header>
+          <div class="row">
+            <h2>Films</h2>
+            <button pButton rounded="true" size="small" (click)="add()">
+              <i class="pi pi-plus"></i>
+              <p pButtonLabel class="hide">Add</p>
+            </button>
+            <!-- <p-button size="small" label="Add" (click)="add()" rounded="true" icon="pi pi-plus"/> -->
+          </div>
+        </p-accordion-header>
+        <p-accordion-content>
+          <p-virtualscroller
+            [items]="films()"
+            [itemSize]="50"
+            scrollHeight="400px"
+            class="films"
+            [delay]="150"
+          >
+            <ng-template pTemplate="item" #item let-item let-options="options">
+              <div class="film">
+                <button (click)="goToDetails(item.id)">
+                  <p>{{ item.title }}</p>
+                </button>
+              </div>
+            </ng-template>
+          </p-virtualscroller>
+        </p-accordion-content>
+      </p-accordion-panel>
+    </p-accordion>
+  </div>
+  <div class="details">
+    <p-button
+      icon="pi pi-arrow-left"
+      label="back to films"
+      severity="secondary"
+      class="back-button"
+      (onClick)="goToFilms()"
+    ></p-button>
+    @if (!film()) {
+      <div class="empty-state">
+        <div class="icon-circle">
+          <i class="pi pi-compass"></i>
+        </div>
+        <h1>Select a Film</h1>
+        <p>Browse the sidebar to explore film details.</p>
+      </div>
+    } @else {
+      <div class="film-card">
+        <div class="cover">
+          <p-image [src]="film()?.cover" alt="cover image" [preview]="true" loading="eager" />
+        </div>
 
-                    <div class="meta">
-                    <span>
-                        <i class="pi pi-folder"></i>
-                        {{ film()?.collection?.name }}
-                    </span>
+        <div class="info">
+          <h2 class="title">{{ film()?.title }}</h2>
 
-                    <span>
-                        <i class="pi pi-calendar"></i>
-                        {{ film()?.releaseDate }}
-                    </span>
+          <div class="meta">
+            <span>
+              <i class="pi pi-folder"></i>
+              {{ film()?.collection?.name }}
+            </span>
 
-                    <span>
-                        <i class="pi pi-clock"></i>
-                        {{ film()?.length }} min
-                    </span>
-                    </div>
-                    <div class="buttons">
-                        <p-button label="Edit" icon="pi pi-pencil" [raised]="true" (click)="edit()"></p-button>
-                        <p-button label="Remove" icon="pi pi-trash" severity="danger" [raised]="true" (click)="remove()"></p-button>
-                    </div>
-                </div>
+            <span>
+              <i class="pi pi-calendar"></i>
+              {{ film()?.releaseDate }}
+            </span>
 
-            </div>
-
-        }
-    </div>
-
+            <span>
+              <i class="pi pi-clock"></i>
+              {{ film()?.length }} min
+            </span>
+          </div>
+          <div class="buttons">
+            <p-button label="Edit" icon="pi pi-pencil" [raised]="true" (click)="edit()"></p-button>
+            <p-button
+              label="Remove"
+              icon="pi pi-trash"
+              severity="danger"
+              [raised]="true"
+              (click)="remove()"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
 </div>

@@ -1,7 +1,15 @@
-<p-breadcrumb [home]="home" [model]="editItems?editItems:addItems" [style]="{'background-color': 'inherit'}"/>
+<p-breadcrumb
+  [home]="home"
+  [model]="editItems ? editItems : addItems"
+  [style]="{ 'background-color': 'inherit' }"
+/>
 <div class="form-card">
   <h1 class="title">
-    @if (isEditing) { Edit Film } @else { Add New Film }
+    @if (isEditing) {
+      Edit Film
+    } @else {
+      Add New Film
+    }
   </h1>
 
   <form [formGroup]="form" class="form-grid">
@@ -9,122 +17,163 @@
       <p-iftalabel>
         <input pInputText type="text" id="title" formControlName="title" />
         <label for="title">Title</label>
-        @if (form.controls.title.invalid && (form.controls.title.touched || form.controls.title.dirty)) {
+        @if (
+          form.controls.title.invalid && (form.controls.title.touched || form.controls.title.dirty)
+        ) {
           <div class="error">
-            @if (form.controls.title.errors?.['required']) { <small>Title is required</small> }
+            @if (form.controls.title.errors?.['required']) {
+              <small>Title is required</small>
+            }
           </div>
         }
       </p-iftalabel>
-
 
       <p-iftalabel>
         <input pInputText type="number" id="length" formControlName="length" min="1" />
         <label for="length">Length (min)</label>
-        @if (form.controls.length.invalid && (form.controls.length.touched || form.controls.length.dirty)) {
+        @if (
+          form.controls.length.invalid &&
+          (form.controls.length.touched || form.controls.length.dirty)
+        ) {
           <div class="error">
-            @if (form.controls.length.errors?.['required']) { <small>Length is required</small> }
-            @if (form.controls.length.errors?.['min']) { <small>Length must be at least 1</small> }
+            @if (form.controls.length.errors?.['required']) {
+              <small>Length is required</small>
+            }
+            @if (form.controls.length.errors?.['min']) {
+              <small>Length must be at least 1</small>
+            }
           </div>
         }
       </p-iftalabel>
 
-
       <p-iftalabel>
-        <input pInputText type="text" id="cover" formControlName="cover" placeholder="https://www.url.com/" />
+        <input
+          pInputText
+          type="text"
+          id="cover"
+          formControlName="cover"
+          placeholder="https://www.url.com/"
+        />
         <label for="cover">Cover URL</label>
-        @if (form.controls.cover.invalid && (form.controls.cover.touched || form.controls.cover.dirty)) {
+        @if (
+          form.controls.cover.invalid && (form.controls.cover.touched || form.controls.cover.dirty)
+        ) {
           <div class="error">
-            @if (form.controls.cover.errors?.['required']) { <small>Cover url is required</small> }
+            @if (form.controls.cover.errors?.['required']) {
+              <small>Cover url is required</small>
+            }
           </div>
         }
       </p-iftalabel>
 
-
       <p-iftalabel>
-        <p-datepicker 
-            [showIcon]="true" 
-            [showOnFocus]="false" 
-            dateFormat="yy-mm-dd" 
-            id="releaseDate" 
-            placeholder="yyyy-mm-dd" 
-            [showButtonBar]="true" 
-            formControlName="releaseDate"
-            [inputStyle]="{'background': 'rgba(255,255,255,0.03)'}"
-            [readonlyInput]="true"
+        <p-datepicker
+          [showIcon]="true"
+          [showOnFocus]="false"
+          dateFormat="yy-mm-dd"
+          id="releaseDate"
+          placeholder="yyyy-mm-dd"
+          [showButtonBar]="true"
+          formControlName="releaseDate"
+          [inputStyle]="{ background: 'rgba(255,255,255,0.03)' }"
+          [readonlyInput]="true"
         />
         <label for="releaseDate">Release date</label>
-        @if (form.controls.releaseDate.invalid && (form.controls.releaseDate.touched || form.controls.releaseDate.dirty)) {
+        @if (
+          form.controls.releaseDate.invalid &&
+          (form.controls.releaseDate.touched || form.controls.releaseDate.dirty)
+        ) {
           <div class="error">
-            @if (form.controls.releaseDate.errors?.['required']) { <small>Release date is required</small> }
+            @if (form.controls.releaseDate.errors?.['required']) {
+              <small>Release date is required</small>
+            }
           </div>
         }
       </p-iftalabel>
 
-
       <div class="collection">
-        <p-select [options]="collections()" 
-            optionLabel="name" 
-            optionValue="id" 
-            placeholder="Collection" 
-            formControlName="collectionId"
-            [filter]="true"
-            variant="filled"
-            [virtualScroll]="true" 
-            [virtualScrollItemSize]="45"
-            #collectionSelect
-            (onHide)="collectionSelect.resetFilter()"
-            >
-            <ng-template #footer>
-                <p-button label="Add new" fluid text size="small" icon="pi pi-plus" (onClick)="colFormVisible = true; collectionSelect.hide()"/>
-            </ng-template>
-            @if (form.controls.collectionId.invalid && (form.controls.collectionId.touched || form.controls.collectionId.dirty)) {
-                <div class="error"><small>Collection is required</small></div>
-            }
+        <p-select
+          [options]="collections()"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Collection"
+          formControlName="collectionId"
+          [filter]="true"
+          variant="filled"
+          [virtualScroll]="true"
+          [virtualScrollItemSize]="45"
+          #collectionSelect
+          (onHide)="collectionSelect.resetFilter()"
+        >
+          <ng-template #footer>
+            <p-button
+              label="Add new"
+              fluid
+              text
+              size="small"
+              icon="pi pi-plus"
+              (onClick)="colFormVisible = true; collectionSelect.hide()"
+            />
+          </ng-template>
+          @if (
+            form.controls.collectionId.invalid &&
+            (form.controls.collectionId.touched || form.controls.collectionId.dirty)
+          ) {
+            <div class="error"><small>Collection is required</small></div>
+          }
         </p-select>
 
-        
-
-      @if (colFormVisible){
-        <div class="cols">
-          <div [formGroup]="colForm" class="col-form">
+        @if (colFormVisible) {
+          <div class="cols">
+            <div [formGroup]="colForm" class="col-form">
               <p-iftalabel>
-                  <input pInputText type="text" id="collection" formControlName="collection"/>
-                  <label for="collection">Collection name</label>
+                <input pInputText type="text" id="collection" formControlName="collection" />
+                <label for="collection">Collection name</label>
               </p-iftalabel>
-              <p-button text icon="pi pi-times" (onClick)="colFormVisible = false; colForm.reset()" rounded="true" size="small"></p-button>
-              <p-button icon="pi pi-plus" (onClick)="addCol(); collectionSelect.setDisabledState(true)" rounded="true" [disabled]="colForm.invalid" size="small"></p-button>
-          </div>
-  
-          @if (colForm.controls.collection.touched){
-            @if (colForm.controls.collection.errors?.["required"]){
-              <div class="error"><small>Set the name of the collection</small></div>
-            }
-            @else if (colForm.controls.collection.errors?.["exists"]) {
-              <div class="error"><small>Collection already exists</small></div>
-            }
-          }
-        </div>
-      }
-    </div>
+              <p-button
+                text
+                icon="pi pi-times"
+                (onClick)="colFormVisible = false; colForm.reset()"
+                rounded="true"
+                size="small"
+              ></p-button>
+              <p-button
+                icon="pi pi-plus"
+                (onClick)="addCol(); collectionSelect.setDisabledState(true)"
+                rounded="true"
+                [disabled]="colForm.invalid"
+                size="small"
+              ></p-button>
+            </div>
 
-    @if (form.touched) {
-      @if (form.errors?.['unchanged']) {
-        <p class="error">No changes were made</p>
+            @if (colForm.controls.collection.touched) {
+              @if (colForm.controls.collection.errors?.['required']) {
+                <div class="error"><small>Set the name of the collection</small></div>
+              } @else if (colForm.controls.collection.errors?.['exists']) {
+                <div class="error"><small>Collection already exists</small></div>
+              }
+            }
+          </div>
+        }
+      </div>
+
+      @if (form.touched) {
+        @if (form.errors?.['unchanged']) {
+          <p class="error">No changes were made</p>
+        } @else if (form.errors?.['badRequest']) {
+          <p class="error">Film couldn't be {{ isEditing ? 'edited' : 'added' }}.</p>
+        }
       }
-      @else if (form.errors?.['badRequest']){
-        <p class="error">Film couldn't be {{isEditing ? "edited" : "added"}}.</p>
-      }
-    }
-    <div class="actions">
-      @if(isEditing) {
-        <button pButton type="submit" [disabled]="!canSubmitEdit" (click)="submit(true)">
-          <span pButtonLabel>Edit</span>
-        </button>
-      } @else {
-        <button pButton type="submit" [disabled]="form.invalid" (click)="submit()">
-          <span pButtonLabel>Add</span>
-        </button>
-      }
+      <div class="actions">
+        @if (isEditing) {
+          <button pButton type="submit" [disabled]="!canSubmitEdit" (click)="submit(true)">
+            <span pButtonLabel>Edit</span>
+          </button>
+        } @else {
+          <button pButton type="submit" [disabled]="form.invalid" (click)="submit()">
+            <span pButtonLabel>Add</span>
+          </button>
+        }
       </div>
     </div>
 
@@ -138,4 +187,4 @@
       </div>
     </div>
   </form>
-</div> 
+</div>

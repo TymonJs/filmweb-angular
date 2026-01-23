@@ -1,40 +1,45 @@
 <form [formGroup]="form">
-    <h1>Log in to your account</h1>
-    <div class="column">
-        <p-iftalabel>
-            <input id="email" pInputText formControlName="email" type="email"/>
-            <label for="email">Email</label>
-            @if (form.controls.email.touched ){
-                @if (form.controls.email.errors?.["required"]){
-                    <p class="error">Email is required</p>
-                }
-                @else if(form.controls.email.errors?.["email"]){
-                    <p class="error">Enter a valid email</p>
-                }
-            }
-        </p-iftalabel>
-
-        <p-iftalabel>
-            <input id="password" pInputText formControlName="password" type="password"/>
-            <label for="password">Password</label>
-            @if (form.controls.password.touched ){
-                @if (form.controls.password.errors?.["required"]){
-                    <p class="error">Password is required</p>
-                }
-                @else if(form.controls.password.errors?.["minlength"]){
-                    <p class="error">Enter a valid password</p>
-                }
-            }
-        </p-iftalabel>
-        @if(form.errors?.["invalidCredentials"]){
-            <p class="error">Invalid login credentials</p>
+  <h1>Log in to your account</h1>
+  <div class="column">
+    <p-iftalabel>
+      <input id="email" pInputText formControlName="email" type="email" />
+      <label for="email">Email</label>
+      @if (form.controls.email.touched) {
+        @if (form.controls.email.errors?.['required']) {
+          <p class="error">Email is required</p>
+        } @else if (form.controls.email.errors?.['email']) {
+          <p class="error">Enter a valid email</p>
         }
-        <div id="submit">
-            <p-button type="submit" label="Submit" icon="pi pi-check" iconPos="right" (onClick)="submit(form)" [disabled]="form.invalid"/>
-        </div>
-    </div>
+      }
+    </p-iftalabel>
 
-    <!-- <p-button [disabled]="form.invalid">Submit</p-button> -->
-    <p>Don't have an account yet? <a routerLink="/register">Register now</a></p>
-    <!-- <p-inputmask mask="12-123" formControlName="postal" placeholder="12-123" /> -->
+    <p-iftalabel>
+      <input id="password" pInputText formControlName="password" type="password" />
+      <label for="password">Password</label>
+      @if (form.controls.password.touched) {
+        @if (form.controls.password.errors?.['required']) {
+          <p class="error">Password is required</p>
+        } @else if (form.controls.password.errors?.['minlength']) {
+          <p class="error">Enter a valid password</p>
+        }
+      }
+    </p-iftalabel>
+    @if (form.errors?.['invalidCredentials']) {
+      <p class="error">Invalid login credentials</p>
+    }
+    <div id="submit">
+      <p-button
+        type="submit"
+        label="Submit"
+        icon="pi pi-check"
+        iconPos="right"
+        (onClick)="submit(form)"
+        [disabled]="form.invalid"
+      />
+    </div>
+  </div>
+
+  <!-- <p-button [disabled]="form.invalid">Submit</p-button> -->
+  <p>Don't have an account yet? <a routerLink="/register">Register now</a></p>
+  <!-- <p-inputmask mask="12-123" formControlName="postal" placeholder="12-123" /> -->
 </form>

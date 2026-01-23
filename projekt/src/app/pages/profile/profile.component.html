@@ -8,49 +8,54 @@
       </div>
     </div>
     <button (click)="logout()" pButton size="small">
-        <span pButtonLabel>Log out</span>
-        <i class="pi pi-sign-out" pButtonIcon></i>
+      <span pButtonLabel>Log out</span>
+      <i class="pi pi-sign-out" pButtonIcon></i>
     </button>
   </div>
 
   <div [formGroup]="form">
-      <h2>Profile data</h2>
-      <div class="profile-body">
-        <section class="info-card public">
-          <h3>General</h3>
-          <div class="info-grid">
-            <div class="info-row">
-                <span class="label">Username</span>
-                <span class="value">{{ user?.username }}</span>
-            </div>
-            <div class="info-row">
-                <span class="label">Email</span>
-                <span class="value">{{user?.email}}</span>
-            </div>
+    <h2>Profile data</h2>
+    <div class="profile-body">
+      <section class="info-card public">
+        <h3>General</h3>
+        <div class="info-grid">
+          <div class="info-row">
+            <span class="label">Username</span>
+            <span class="value">{{ user?.username }}</span>
           </div>
-        </section>
-    
-        <section class="info-card private">
-          <h3>Address</h3>
-          <div class="info-grid" formGroupName="address">
-            <div class="info-row">
-                <span class="label">City</span>
-                <span>{{user?.address?.city}}</span>
-            </div>
-            <div class="info-row">
-                <span class="label">Street</span>
-                <span>{{user?.address?.street}}</span>
-            </div>
-            <div class="info-row">
-                <span class="label">Postal</span>
-                <span>{{user?.address?.postal}}</span>
-            </div>
+          <div class="info-row">
+            <span class="label">Email</span>
+            <span class="value">{{ user?.email }}</span>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <section class="info-card private">
+        <h3>Address</h3>
+        <div class="info-grid" formGroupName="address">
+          <div class="info-row">
+            <span class="label">City</span>
+            <span>{{ user?.address?.city }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Street</span>
+            <span>{{ user?.address?.street }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Postal</span>
+            <span>{{ user?.address?.postal }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 
   <div class="save">
-    <p-button label="Edit data" icon="pi pi-arrow-right" (onClick)="edit()" iconPos="right"></p-button>
+    <p-button
+      label="Edit data"
+      icon="pi pi-arrow-right"
+      (onClick)="edit()"
+      iconPos="right"
+    ></p-button>
   </div>
 </div>
